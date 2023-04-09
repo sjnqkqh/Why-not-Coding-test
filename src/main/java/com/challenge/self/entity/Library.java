@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "TB_LIBRARY")
-public class Library {
+public class Library extends CommonBaseDateTime{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

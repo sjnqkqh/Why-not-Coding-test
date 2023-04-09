@@ -5,7 +5,7 @@ import com.challenge.self.util.YnCode;
 import javax.persistence.*;
 @Entity
 @Table(name = "TB_LIBRARIAN")
-public class Librarian{
+public class Librarian extends CommonBaseDateTime{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

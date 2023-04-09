@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "TB_BOOK_RESERVATION")
-public class BookReservation {
+public class BookReservation extends CommonBaseDateTime{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
