@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS TB_USER;
-DROP TABLE IF EXISTS TB_PHONE_AUTH;
 DROP TABLE IF EXISTS TB_USER_LIBRARY_MAPPING;
 DROP TABLE IF EXISTS TB_BOOK_RESERVATION;
+DROP TABLE IF EXISTS TB_PHONE_AUTH;
+DROP TABLE IF EXISTS TB_USER;
 DROP TABLE IF EXISTS TB_LIBRARY_BOOK_CNT;
 DROP TABLE IF EXISTS TB_LIBRARIAN;
 DROP TABLE IF EXISTS TB_USER;
@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS TB_ADMIN;
 
 CREATE TABLE TB_USER
 (
-    id                BIGINT PRIMARY KEY AUTO_INCREMENT,
+    id                BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     login_id          VARCHAR(100) NOT NULL,
     email             VARCHAR(100) NOT NULL,
     enc_password      VARCHAR(100) NOT NULL,
@@ -29,18 +29,18 @@ CREATE INDEX ACCESS_TOKEN_INDEX ON TB_USER (access_token, delete_yn);
 
 CREATE TABLE TB_PHONE_AUTH
 (
-    id              BIGINT       NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_id         BIGINT       NULL,
-    enc_phone       VARCHAR(50)  NOT NULL,
+    id              BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id         BIGINT UNSIGNED NULL,
+    enc_phone       VARCHAR(50)     NOT NULL,
     telecom_code    ENUM ('SKT','KT','LGU','SAVE_SKT','SAVE_KT','SAVE_LGU'),
-    auth_value      VARCHAR(20)  NOT NULL,
-    authentication  VARCHAR(200) NULL,
-    AUTHORIZED_YN   CHAR(1)      NOT NULL DEFAULT 'N',
+    auth_value      VARCHAR(20)     NOT NULL,
+    authentication  VARCHAR(200)    NULL,
+    AUTHORIZED_YN   CHAR(1)         NOT NULL DEFAULT 'N',
     auth_type       ENUM ('SIGN_IN', 'PASSWORD_RESET'),
-    auth_until      DATETIME     NOT NULL DEFAULT NOW(),
-    guarantee_until DATETIME     NULL,
-    created_at      DATETIME     NOT NULL DEFAULT NOW(),
-    updated_at      DATETIME     NOT NULL DEFAULT NOW(),
+    auth_until      DATETIME        NOT NULL DEFAULT NOW(),
+    guarantee_until DATETIME        NULL,
+    created_at      DATETIME        NOT NULL DEFAULT NOW(),
+    updated_at      DATETIME        NOT NULL DEFAULT NOW(),
     CONSTRAINT PHONE_AUTH_REFERENCE FOREIGN KEY (user_id) references TB_USER (id)
 );
 
@@ -61,7 +61,7 @@ CREATE TABLE TB_LIBRARY
     PRIMARY KEY (id)
 );
 CREATE INDEX LIBRARY_NAME_INDEX ON TB_LIBRARY (library_name, use_yn);
-CREATE INDEX LIBRARY_CREATE_DATE_INDEX ON TB_LIBRARY (use_yn,created_at);
+CREATE INDEX LIBRARY_CREATE_DATE_INDEX ON TB_LIBRARY (use_yn, created_at);
 
 
 # 회원별 도서관 매핑 테이블
@@ -116,7 +116,7 @@ CREATE TABLE TB_BOOK
 CREATE INDEX ISBN_SEARCH_INDEX ON TB_BOOK (isbn, delete_yn);
 CREATE INDEX AUTHOR_SEARCH_INDEX ON TB_BOOK (author, delete_yn);
 CREATE INDEX PUBLISHER_SEARCH_INDEX ON TB_BOOK (publisher_name, title, delete_yn);
-CREATE INDEX SORT_INDEX ON TB_BOOK(updated_at DESC);
+CREATE INDEX SORT_INDEX ON TB_BOOK (updated_at DESC);
 
 # 도서 소장 권수 테이블
 CREATE TABLE TB_LIBRARY_BOOK_CNT
@@ -151,7 +151,7 @@ CREATE TABLE TB_BOOK_RESERVATION
     PRIMARY KEY (id),
     FOREIGN KEY fk_library_mapping (library_id) REFERENCES TB_LIBRARY (id),
     FOREIGN KEY fk_book_mapping (book_id) REFERENCES TB_BOOK (id),
-    FOREIGN KEY fk_book_mapping (user_id) REFERENCES TB_USER (id)
+    FOREIGN KEY fk_user_mapping (user_id) REFERENCES TB_USER (id)
 );
 
 CREATE INDEX RESERVE_INDEX ON TB_BOOK_RESERVATION (library_id, book_id, delete_yn, updated_at DESC);
