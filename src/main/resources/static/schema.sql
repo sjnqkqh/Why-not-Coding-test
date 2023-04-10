@@ -55,13 +55,13 @@ CREATE TABLE TB_LIBRARY
     library_name VARCHAR(255)               NOT NULL,
     address      VARCHAR(255)               NOT NULL,
     phone_number VARCHAR(255) DEFAULT NULL,
-    use_yn       CHAR(1)      DEFAULT 'Y',
+    delete_yn       CHAR(1)      DEFAULT 'Y',
     created_at   DATETIME     DEFAULT NOW() NOT NULL,
     updated_at   DATETIME     DEFAULT NOW() NOT NULL,
     PRIMARY KEY (id)
 );
-CREATE INDEX LIBRARY_NAME_INDEX ON TB_LIBRARY (library_name, use_yn);
-CREATE INDEX LIBRARY_CREATE_DATE_INDEX ON TB_LIBRARY (use_yn, created_at);
+CREATE INDEX LIBRARY_NAME_INDEX ON TB_LIBRARY (library_name, delete_yn);
+CREATE INDEX LIBRARY_CREATE_DATE_INDEX ON TB_LIBRARY (delete_yn, created_at);
 
 
 # 회원별 도서관 매핑 테이블
@@ -125,7 +125,7 @@ CREATE TABLE TB_LIBRARY_BOOK_CNT
     library_id BIGINT UNSIGNED NOT NULL,
     book_id    BIGINT UNSIGNED NOT NULL,
     book_cnt   INT             NOT NULL DEFAULT 0,
-    use_yn     CHAR(1)         NOT NULL DEFAULT 'Y',
+    delete_yn     CHAR(1)         NOT NULL DEFAULT 'Y',
     created_at DATETIME                 DEFAULT NOW() NOT NULL,
     updated_at DATETIME                 DEFAULT NOW() NOT NULL,
     PRIMARY KEY (id),
@@ -133,7 +133,7 @@ CREATE TABLE TB_LIBRARY_BOOK_CNT
     FOREIGN KEY fk_book_mapping (book_id) REFERENCES TB_BOOK (id)
 );
 
-CREATE INDEX BOOK_COUNT_INDEX ON TB_LIBRARY_BOOK_CNT (library_id, book_id, use_yn);
+CREATE INDEX BOOK_COUNT_INDEX ON TB_LIBRARY_BOOK_CNT (library_id, book_id, delete_yn);
 
 # 도서 대출 예약 테이블
 CREATE TABLE TB_BOOK_RESERVATION
@@ -154,5 +154,5 @@ CREATE TABLE TB_BOOK_RESERVATION
     FOREIGN KEY fk_user_mapping (user_id) REFERENCES TB_USER (id)
 );
 
-CREATE INDEX RESERVE_INDEX ON TB_BOOK_RESERVATION (library_id, book_id, delete_yn, updated_at DESC);
-CREATE INDEX USER_RESERVE_INDEX ON TB_BOOK_RESERVATION (user_id, delete_yn, updated_at DESC);
+CREATE INDEX RESERVE_INDEX ON TB_BOOK_RESERVATION (library_id, expired_yn, delete_yn, book_id, updated_at DESC);
+CREATE INDEX USER_RESERVE_INDEX ON TB_BOOK_RESERVATION (user_id, expired_yn, delete_yn, updated_at DESC);

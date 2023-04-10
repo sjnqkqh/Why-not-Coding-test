@@ -4,7 +4,10 @@ import com.challenge.self.util.YnCode;
 
 import javax.persistence.*;
 
+import lombok.Getter;
+
 @Entity
+@Getter
 @Table(name = "TB_LIBRARY")
 public class Library extends CommonBaseDateTime{
 
@@ -21,7 +24,7 @@ public class Library extends CommonBaseDateTime{
 	@Column(name = "phone_number")
 	private String phoneNumber;
 
-	@Column(name = "use_yn", nullable = false)
+	@Column(name = "delete_yn", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private YnCode useYn;
+	private YnCode deleteYn;
 }

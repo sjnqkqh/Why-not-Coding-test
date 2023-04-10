@@ -23,8 +23,8 @@ public class LibraryBookCnt extends CommonBaseDateTime {
     @Column(name = "book_cnt", nullable = false)
     private int bookCnt;
 
-    @Column(name = "use_yn", nullable = false)
+    @Column(name = "delete_yn", nullable = false)
     @Enumerated(EnumType.STRING)
-    private YnCode useYn;
+    private YnCode deleteYn;
 
 }

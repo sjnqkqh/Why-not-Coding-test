@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class User extends CommonBaseDateTime {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id")
     @GeneratedValue
     private Long userId;
 
