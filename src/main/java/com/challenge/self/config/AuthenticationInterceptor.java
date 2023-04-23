@@ -2,7 +2,7 @@ package com.challenge.self.config;
 
 import com.challenge.self.entity.User;
 import com.challenge.self.service.UserService;
-import com.challenge.self.util.ApiExceptionCode;
+import com.challenge.self.util.code.ApiExceptionCode;
 import java.time.LocalDateTime;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     private final UserService userService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) {
         String accessToken = StringUtils.replaceOnce(request.getHeader(HttpHeaders.AUTHORIZATION), "bearer ", "");
         User user = userService.searchUser(accessToken);
 

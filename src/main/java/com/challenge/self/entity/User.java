@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.challenge.self.dto.user.req.UserCreateReqDto;
-import com.challenge.self.util.YnCode;
+import com.challenge.self.util.code.YnCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class User extends CommonBaseDateTime {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "user_id")
     @GeneratedValue
     private Long userId;
 

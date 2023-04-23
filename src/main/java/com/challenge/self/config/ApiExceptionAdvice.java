@@ -1,7 +1,7 @@
 package com.challenge.self.config;
 
 import com.challenge.self.dto.ApiExceptionResp;
-import com.challenge.self.util.ApiExceptionCode;
+import com.challenge.self.util.code.ApiExceptionCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

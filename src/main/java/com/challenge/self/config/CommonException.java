@@ -1,6 +1,6 @@
 package com.challenge.self.config;
 
-import com.challenge.self.util.ApiExceptionCode;
+import com.challenge.self.util.code.ApiExceptionCode;
 import lombok.Getter;
 
 @Getter

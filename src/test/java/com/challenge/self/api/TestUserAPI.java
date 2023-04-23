@@ -25,7 +25,7 @@ import com.challenge.self.dto.user.req.UserCreateReqDto;
 import com.challenge.self.dto.user.resp.UserInfoRespDto;
 import com.challenge.self.service.AuthService;
 import com.challenge.self.service.UserService;
-import com.challenge.self.util.TelecomCode;
+import com.challenge.self.util.code.TelecomCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

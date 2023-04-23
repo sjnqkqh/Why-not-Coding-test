@@ -1,6 +1,6 @@
 package com.challenge.self.dto.user.req;
 
-import com.challenge.self.util.TelecomCode;
+import com.challenge.self.util.code.TelecomCode;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

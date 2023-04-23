@@ -1,8 +1,8 @@
 package com.challenge.self.repository;
 
 import com.challenge.self.entity.PhoneAuth;
-import com.challenge.self.util.AuthTypeCode;
-import com.challenge.self.util.TelecomCode;
+import com.challenge.self.util.code.AuthTypeCode;
+import com.challenge.self.util.code.TelecomCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -2,9 +2,9 @@ package com.challenge.self.entity;
 
 import com.challenge.self.dto.auth.req.PasswordResetPhoneAuthReqDto;
 import com.challenge.self.dto.auth.req.SignInPhoneAuthReqDto;
-import com.challenge.self.util.AuthTypeCode;
-import com.challenge.self.util.TelecomCode;
-import com.challenge.self.util.YnCode;
+import com.challenge.self.util.code.AuthTypeCode;
+import com.challenge.self.util.code.TelecomCode;
+import com.challenge.self.util.code.YnCode;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;

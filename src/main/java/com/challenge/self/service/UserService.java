@@ -17,13 +17,13 @@ import com.challenge.self.dto.user.req.UserCreateReqDto;
 import com.challenge.self.dto.user.resp.UserInfoRespDto;
 import com.challenge.self.entity.User;
 import com.challenge.self.repository.UserRepository;
-import com.challenge.self.util.ApiExceptionCode;
+import com.challenge.self.util.code.ApiExceptionCode;
 import com.challenge.self.util.BcryptUtil;
 import com.challenge.self.util.EncryptUtil;
 import com.challenge.self.util.JwtTokenProvideUtil;
 import com.challenge.self.util.RegexUtil;
 import com.challenge.self.util.StringUtil;
-import com.challenge.self.util.YnCode;
+import com.challenge.self.util.code.YnCode;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

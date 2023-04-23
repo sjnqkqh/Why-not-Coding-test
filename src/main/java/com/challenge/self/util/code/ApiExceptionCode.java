@@ -1,4 +1,4 @@
-package com.challenge.self.util;
+package com.challenge.self.util.code;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

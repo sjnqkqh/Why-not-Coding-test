@@ -1,7 +1,7 @@
 package com.challenge.self.dto.auth.req;
 
-import com.challenge.self.util.AuthTypeCode;
-import com.challenge.self.util.TelecomCode;
+import com.challenge.self.util.code.AuthTypeCode;
+import com.challenge.self.util.code.TelecomCode;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 

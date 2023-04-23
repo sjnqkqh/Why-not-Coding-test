@@ -9,7 +9,7 @@ import com.challenge.self.dto.user.resp.LoginRespDto;
 import com.challenge.self.dto.user.resp.UserInfoRespDto;
 import com.challenge.self.service.AuthService;
 import com.challenge.self.service.UserService;
-import com.challenge.self.util.AuthTypeCode;
+import com.challenge.self.util.code.AuthTypeCode;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

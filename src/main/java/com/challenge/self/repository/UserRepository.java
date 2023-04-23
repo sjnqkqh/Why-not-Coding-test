@@ -1,7 +1,7 @@
 package com.challenge.self.repository;
 
 import com.challenge.self.entity.User;
-import com.challenge.self.util.YnCode;
+import com.challenge.self.util.code.YnCode;
 
 import java.util.ArrayList;
 import java.util.Optional;
