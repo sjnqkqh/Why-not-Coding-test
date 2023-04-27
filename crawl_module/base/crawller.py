@@ -33,12 +33,12 @@ def crawl_with_scroll_search_page(driver, target_url: str):
 
     # 채용 공고 추출
     jobs = []
-    job_cards = soup.find_all('div', {'class': 'kCmSqo'})
+    job_cards = soup.find_all('div', {'class': 'fKzIXW'})
     for job_card in job_cards:
         job = {
             'title': job_card.find('h2', {'class': 'position_card_info_title'}).text.strip(),
-            'company': job_card.find('div', {'class': 'elOlvL'}).text.strip(),
-            'location': job_card.find('ul', {'class': 'SVMrm'}).text.strip(),
+            'company': job_card.find('div', {'class': 'enZSuu'}).text.strip(),
+            'location': job_card.find('ul', {'class': 'DZqQv'}).text.strip(),
             'url': "https://" + urllib.parse.urlsplit(target_url).hostname + job_card.find('a')['href']
         }
         jobs.append(job)
@@ -46,8 +46,19 @@ def crawl_with_scroll_search_page(driver, target_url: str):
     return jobs
 
 
+def crawl_hiring_post_detail_page(driver, target_url: str):
+    driver.get(target_url)
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    context = soup.select('position_info dl')
+    print(context)
+    return context[1:]
+
+
 with open('../config/config.json') as f:
     config = json.load(f)
 driver = create_browser_driver(config['driver']['location'])
 jobs = crawl_with_scroll_search_page(driver, config['crawler']['url'])
-print(jobs)
+
+for job in jobs:
+    description = crawl_hiring_post_detail_page(driver, job['url'])
+    print(description)
