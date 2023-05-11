@@ -2,10 +2,11 @@ from datetime import datetime
 
 from peewee import *
 
+from crawl_module.domain.base_model import BaseModel
 from crawl_module.domain.company import TbCompany
 
 
-class TbHiringPost(Model):
+class TbHiringPost(BaseModel):
     hiring_post_id = BigAutoField()
     company_id = ForeignKeyField(TbCompany, backref='hiring_posts')
     post_name = CharField(max_length=255)
@@ -19,8 +20,8 @@ class TbHiringPost(Model):
     only_image_yn = CharField(max_length=1, default='N')
     admin_checked_yn = CharField(max_length=1, default='N')
     post_url = CharField(max_length=255)
-    created_at = DateTimeField(default=datetime.datetime.now)
-    updated_at = DateTimeField(default=datetime.datetime.now)
+    created_at = DateTimeField(default=datetime.now)
+    updated_at = DateTimeField(default=datetime.now)
 
     class Meta:
         db_table = 'TB_HIRING_POST'

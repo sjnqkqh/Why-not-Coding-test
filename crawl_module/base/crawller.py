@@ -4,12 +4,13 @@ import uuid
 
 import requests as requests
 
+from crawl_module.base.post_data_convertor import *
+
 
 # 채용 공고 검색 API 파싱
 def parse_post_search_api():
     url = config['api_url']['search']
     response = requests.get(url)
-
     if response.status_code == 200:
         # 요청에 성공한 경우, response.json() 메서드를 사용하여 응답 데이터를 파싱합니다.
         data = response.json()
@@ -33,4 +34,6 @@ def download_image(url):
 with open('../config/config.json') as f:
     config = json.load(f)
 positions = parse_post_search_api()
-download_image(positions[0].get('imagePath'))
+for item in positions:
+    save_brief_hiring_post(item)
+
