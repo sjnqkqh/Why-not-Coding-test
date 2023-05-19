@@ -29,5 +29,5 @@ Why_not_cote 프로젝트는 사소한 불편함에서 시작된 1인 프로젝�
   - `RestDocs`
 
 
-### [Notion Page](https://shrub-wasabi-bb8.notion.site/Why_not_cote-d6cf883632234c7aa6820f9e680e159e)
+## [Notion Page (Click!)](https://shrub-wasabi-bb8.notion.site/Why_not_cote-d6cf883632234c7aa6820f9e680e159e)
 
