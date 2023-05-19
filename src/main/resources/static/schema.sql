@@ -50,8 +50,8 @@ CREATE TABLE TB_COMPANY
 (
     company_id     BIGINT UNSIGNED            NOT NULL AUTO_INCREMENT,
     company_name   VARCHAR(255)               NOT NULL,
-    industry_type  VARCHAR(255)               NOT NULL,
-    company_type   VARCHAR(255)               NOT NULL,
+    industry_type  VARCHAR(255) DEFAULT NULL,
+    company_type   VARCHAR(255) DEFAULT NULL,
     employee_count INT          DEFAULT NULL,
     address        VARCHAR(255) DEFAULT NULL,
     homepage       VARCHAR(255) DEFAULT NULL,
@@ -68,7 +68,7 @@ CREATE INDEX COMPANY_TYPE_INDEX ON TB_COMPANY (industry_type, company_type);
 CREATE TABLE TB_HIRING_POST
 (
     post_id                           BIGINT UNSIGNED            NOT NULL AUTO_INCREMENT,
-    company_id                        BIGINT UNSIGNED            NOT NULL,
+    company_id                        BIGINT UNSIGNED            DEFAULT NULL,
     post_name                         VARCHAR(255)               NOT NULL,
 
     qualifications_career             VARCHAR(255) DEFAULT NULL,
@@ -107,6 +107,7 @@ CREATE TABLE TB_SKILL
     updated_at DATETIME DEFAULT NOW() NOT NULL,
     primary key (skill_id)
 );
+CREATE INDEX SKILL_TILE_INDEX ON TB_SKILL (title);
 
 CREATE TABLE TB_POST_SKILL
 (

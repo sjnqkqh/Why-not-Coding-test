@@ -1,53 +1,49 @@
-# README
+# Why_not_cote
 
-# 유저 기능 프로젝트
+### 어째서 개발자 전용 채용 플랫폼에도 코딩 테스트/과제 전형을 보는 기업만 모아보는 기능은 없을까?
+
+---
+
+Why_not_cote 프로젝트는 사소한 불편함에서 시작된 1인 프로젝트입니다.
+
+각종 유명 채용 플랫폼을 비롯하여, 개발자들을 위한 채용 플랫폼 사이트에서도 채용 과정에서 과제물 전형이나 코딩 테스트가 포함된 기업들을 모아 보는 기능은 제공되지 않았습니다.
+
+코딩 테스트를 치르는 기업에 지원 하고 싶은 저로서는 기업들이 코딩 테스트를 진행하는지 확인하기 위해 채용 공고의 상세 페이지의 최하단까지 확인하여야 제가 원하는 정보를 찾을 수 있었습니다.
+
+이런 과정을 조금 줄여보고자, 그리고 새로 학습한 내용들을 체화하고자 해당 프로젝트는 시작되었습니다.
 
 ### 사용 기술
 
-- Java11, Spring Boot(2.6.12), lombok, Junit5
-- Mysql 8.0, Spring Data JPA
-- JWT, Spring Security, Bcrypt, AES256
-- Spring Rest Docs
+---
 
-## 주요 기능 설명
+- **Data crawling**
+    - `Python 3.9`
+    - `Peewee`
+- **Server Side**
+    - `Spring Boot 2.6.12`
+    - `Java 11`
+    - `Spring Data JPA`
+    - `Elastic Search (후보)`
+    - `Mysql 8.0`
+    - `Mockito`
+    - `RestDocs`
 
-### 휴대전화 인증
+### 개발 진행 상황
 
-- 회원가입, 비밀번호 찾기 시 각각 휴대전화 인증 API가 구현되어 있으며, 각 모두 휴대전화 인증 API를 통해 개별적인 인증을 수행할 수 있습니다.
-- 휴대전화 인증 [회원가입](about:blank#%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85) API는 휴대전화 번호 11~12자리와 통신사 코드를 입력받으며, 휴대전화 인증[비밀번호 찾기] API는 휴대전화 번호와 통신사 코드, 아이디와 이메일을 추가로 입력받습니다.
-- 인증번호는 사용자가 입력한 휴대전화 번호 뒷자리 6자입니다. (예. 01012123456 → 123456으로 인증)
-- 휴대전화 인증 API는 결과 값으로 인증 성공 여부(isSuccess) 와 성공 시 authentication을 반환합니다. 이 중 authentication 값은 회원가입, 비밀번호 변경 API 호출 시 인자값으로 전달되며, 인증까지의 유효기간은 인증을 요청한 직후 3분이내, 인증을 완료한 이후 유효 기간은 30분 이내입니다.
+---
 
-### 회원가입
+1. 데이터 모델링
+2. **데이터 크롤링 (Now!)**
+3. 코딩 테스트/ 과제물 전형 유무 판별 로직 구현
+4. 채용 공고 목록 검색/ 상세 조회 API 구현
+5. 회원 기능 API 수정 (회원가입 및 휴대전화 인증 로직 개편 예정)
+6. 채용 공고 관련 댓글, 북마크 기능 구현
 
-- 로그인 ID, Email, 비밀번호, 닉네임, 휴대전화 번호, 통신사 코드, 휴대전화 인증 결과값을 인자로 받습니다.
-- 회원 가입 휴대전화 인증 API 실행당시 인증을 성공한 휴대전화 정보와 회원가입 시 입력한 정보가 다르다면 예외처리됩니다.
-- 성공적으로 회원가입 시, 비밀번호는 Bcrypt 방식으로 해시 처리되어 저장되며, 휴대전화 번호는 AES256방식으로 암호화하여 DB에 저장합니다.
+### Part Description
 
-### 로그인 / 회원 정보 조회
+---
 
-- 회원가입이 완료된 계정 정보로 로그인 시, API 결과값으로 JWT AccessToken을 하나 발급합니다.
-- 해당 토큰은 현재 유저 정보 조회 API에서만 요구하며, API 요청 시 HTTP Header의 Authorization 필드의 값으로 넣어 Request를 줘야합니다.
-- 해당 토큰을 이용해 인터셉터에서 토큰의 유저 정보와 만료 여부를 확인 후, 회원 정보 조회 API 요청을 수행합니다.
-
-### 예외 처리
-
-- 프로젝트 내부 `ApiExceptionAdvice` 파일에서 Exception Handling을 수행합니다.
-- 예상할 수 있는 예외 처리에 대해선 `RuntimeException` 클래스를 확장한 `CommonException` 클래스를 이용해 처리합니다.
-- 에러 코드와 메시지는 `ApiExceptionCode` 에서 Enum으로 관리합니다.
-
-### DB
-
-- 데이터 베이스는 Mysql 8.0 버전을 사용합니다.
-- 데이터 베이스 스키마는 resources/static/schema.sql에 선언되어 있습니다.
-- Hibernate가 제공하는 DDL 생성 기능은 사용하지 않습니다.
-
-### 문서화
-
-- Spring Rest Docs 라이브러리를 사용하여 API 문서를 작성하였으며, 문서의 위치는 프로젝트 내부 “src/asciidoc/apiDocument.html” 이며, 접근이 어려우신 경우 **[Link](https://drive.google.com/file/d/1vRIBVKNxjIwv9lwyNuY5v04fdoBVG1xt/view?usp=sharing)** 에서 다운로드 할 수 있습니다
-
-### 테스트
-
-- 문서화 및 간단한 수준의 단위 테스트를 위해, MockMVC와 Mockito를 사용하여 각 API별 단위 테스트를 구현하였습니다.
-
-**본 문서는 2023년 4월 11일 기준으로 작성되었습니다.**
+[Data Crawlling](https://www.notion.so/Data-Crawlling-40a120b9b97b40a09757e772039649c6)
+[DataBase](https://www.notion.so/DataBase-70251b29f4264deea4d3067e95992d21)
+[회원 기능 API](https://www.notion.so/API-8f2520e9e2b34e75948f268370de23ce)
+[채용 공고 API](https://www.notion.so/API-9866fe2e0554495ea04d7b4a424a111d)
