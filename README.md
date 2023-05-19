@@ -17,33 +17,17 @@ Why_not_cote 프로젝트는 사소한 불편함에서 시작된 1인 프로젝�
 ---
 
 - **Data crawling**
-    - `Python 3.9`
-    - `Peewee`
+  - `Python 3.9`
+  - `Peewee`
 - **Server Side**
-    - `Spring Boot 2.6.12`
-    - `Java 11`
-    - `Spring Data JPA`
-    - `Elastic Search (후보)`
-    - `Mysql 8.0`
-    - `Mockito`
-    - `RestDocs`
+  - `Spring Boot 2.6.12`
+  - `Java 11`
+  - `Spring Data JPA`
+  - `Elastic Search (도입 고려 중)`
+  - `Mysql 8.0`
+  - `Mockito`
+  - `RestDocs`
 
-### 개발 진행 상황
 
----
+### [Notion Page](https://shrub-wasabi-bb8.notion.site/Why_not_cote-d6cf883632234c7aa6820f9e680e159e)
 
-1. 데이터 모델링
-2. **데이터 크롤링 (Now!)**
-3. 코딩 테스트/ 과제물 전형 유무 판별 로직 구현
-4. 채용 공고 목록 검색/ 상세 조회 API 구현
-5. 회원 기능 API 수정 (회원가입 및 휴대전화 인증 로직 개편 예정)
-6. 채용 공고 관련 댓글, 북마크 기능 구현
-
-### Part Description
-
----
-
-[Data Crawlling](https://www.notion.so/Data-Crawlling-40a120b9b97b40a09757e772039649c6)
-[DataBase](https://www.notion.so/DataBase-70251b29f4264deea4d3067e95992d21)
-[회원 기능 API](https://www.notion.so/API-8f2520e9e2b34e75948f268370de23ce)
-[채용 공고 API](https://www.notion.so/API-9866fe2e0554495ea04d7b4a424a111d)
