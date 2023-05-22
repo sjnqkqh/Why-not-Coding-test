@@ -69,8 +69,7 @@ CREATE TABLE TB_HIRING_POST
 (
     post_id                           BIGINT UNSIGNED            NOT NULL AUTO_INCREMENT,
     company_id                        BIGINT UNSIGNED            DEFAULT NULL,
-    post_name                         VARCHAR(255)               NOT NULL,
-
+    post_title                         VARCHAR(255)               NOT NULL,
     qualifications_career             VARCHAR(255) DEFAULT NULL,
     qualifications_education          VARCHAR(255) DEFAULT NULL,
     qualifications_skill              VARCHAR(255) DEFAULT NULL,

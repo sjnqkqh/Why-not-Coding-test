@@ -9,7 +9,7 @@ from crawl_module.domain.company import TbCompany
 class TbHiringPost(BaseModel):
     post_id = BigAutoField()
     company_id = ForeignKeyField(TbCompany, backref="hiring_posts")
-    post_name = CharField(max_length=255)
+    post_title = CharField(max_length=255)
     qualifications_career = CharField(max_length=255, null=True)
     qualifications_education = CharField(max_length=255, null=True)
     qualifications_skill = CharField(max_length=255, null=True)
