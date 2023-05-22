@@ -12,4 +12,4 @@ class TbSkill(BaseModel):
     updated_at = DateTimeField(default=datetime.now())
 
     class Meta:
-        db_table = 'TB_SKILL'
+        db_table = "TB_SKILL"

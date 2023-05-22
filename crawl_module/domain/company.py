@@ -19,4 +19,4 @@ class TbCompany(BaseModel):
     updated_at = DateTimeField(default=datetime.now)
 
     class Meta:
-        db_table = 'TB_COMPANY'
+        db_table = "TB_COMPANY"
