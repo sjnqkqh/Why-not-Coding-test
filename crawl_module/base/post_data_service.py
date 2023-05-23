@@ -1,6 +1,5 @@
 from crawl_module.domain.base_model import db
 from crawl_module.domain.hiring_post import *
-from crawl_module.domain.post_skill import TbPostSkill
 from crawl_module.domain.skill import TbSkill
 from crawl_module.dto.postDto import Post
 
@@ -9,7 +8,7 @@ from crawl_module.dto.postDto import Post
 def save_brief_hiring_post(post: Post):
     company_id = TbCompany.select().where(TbCompany.company_name == post.company_name)
     return TbHiringPost.get_or_create(
-        company_id=company_id, post_title=post.post_title
+        company_id=company_id, post_title=post.post_title, job_category=post.job_category
     )[0]
 
 
@@ -30,27 +29,37 @@ def save_post_detail(post_id, post_dto: Post):
 # 채용 공고별 기술 스택 저장
 @db.atomic()
 def save_post_skills(post_id, skill_id_list: list):
-    records = []
-    for skill_id in skill_id_list:
-        records.append({"post_id": post_id, "skill_id": skill_id})
+    query = f"INSERT INTO TB_POST_SKILL (POST_ID, SKILL_ID) " \
+            f"SELECT {post_id} AS POST_ID, B.SKILL_ID " \
+            f"FROM TB_POST_SKILL A " \
+            f"RIGHT JOIN TB_SKILL B " \
+            f"ON A.SKILL_ID = B.SKILL_ID AND A.POST_ID = {post_id} " \
+            f"WHERE " \
+            f" A.SKILL_ID IS NULL "
 
-    TbPostSkill.insert_many(records).execute()
+    if len(skill_id_list) == 1:
+        query += f"AND B.SKILL_ID = {skill_id_list[0]}"
+    else:
+        query += f"AND B.SKILL_ID IN {tuple(skill_id_list)} "
+
+    db.execute_sql(query, commit=True)
 
 
 # DB에 등록되지 않은 회사명 등록 처리
 @db.atomic()
-def save_not_exist_company_with_company_name(company_names):
-    query = TbCompany.select().where(TbCompany.company_name.in_(company_names))
+def save_not_exist_company_with_brief_company(company_dict: dict):
+    company_name_list = list(company_dict.keys())
+
+    query = TbCompany.select().where(TbCompany.company_name.in_(company_name_list))
 
     exists = set([item.company_name for item in query])
     not_exists = [
-        {"company_name": company_name}
-        for company_name in company_names
+        {"company_name": company_name, "origin_company_id": company_dict.get(company_name)}
+        for company_name in company_name_list
         if company_name not in exists
     ]
 
     TbCompany.insert_many(not_exists).execute()
-
 
 # DB에 등록되지 않은 기술명 등록 처리
 @db.atomic()
@@ -68,5 +77,3 @@ def save_not_exist_skills(stacks):
 def get_skills_by_names(stacks):
     query = TbSkill.select().where(TbSkill.title.in_(stacks))
     return [item.skill_id for item in query]
-
-

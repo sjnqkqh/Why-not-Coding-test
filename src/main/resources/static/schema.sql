@@ -48,17 +48,18 @@ CREATE INDEX AUTHENTICATION_INDEX ON TB_PHONE_AUTH (auth_type, authentication);
 
 CREATE TABLE TB_COMPANY
 (
-    company_id     BIGINT UNSIGNED            NOT NULL AUTO_INCREMENT,
-    company_name   VARCHAR(255)               NOT NULL,
-    industry_type  VARCHAR(255) DEFAULT NULL,
-    company_type   VARCHAR(255) DEFAULT NULL,
-    employee_count INT          DEFAULT NULL,
-    address        VARCHAR(255) DEFAULT NULL,
-    homepage       VARCHAR(255) DEFAULT NULL,
-    phone_number   VARCHAR(255) DEFAULT NULL,
-    thumbnail_url  VARCHAR(255) DEFAULT NULL,
-    created_at     DATETIME     DEFAULT NOW() NOT NULL,
-    updated_at     DATETIME     DEFAULT NOW() NOT NULL,
+    company_id        BIGINT UNSIGNED               NOT NULL AUTO_INCREMENT,
+    origin_company_id BIGINT UNSIGNED DEFAULT NULL,
+    company_name      VARCHAR(255)                  NOT NULL,
+    industry_type     VARCHAR(255)    DEFAULT NULL,
+    company_type      VARCHAR(255)    DEFAULT NULL,
+    employee_count    INT             DEFAULT NULL,
+    address           VARCHAR(255)    DEFAULT NULL,
+    homepage          VARCHAR(255)    DEFAULT NULL,
+    phone_number      VARCHAR(255)    DEFAULT NULL,
+    thumbnail_url     VARCHAR(255)    DEFAULT NULL,
+    created_at        DATETIME        DEFAULT NOW() NOT NULL,
+    updated_at        DATETIME        DEFAULT NOW() NOT NULL,
     PRIMARY KEY (company_id)
 );
 
@@ -69,7 +70,8 @@ CREATE TABLE TB_HIRING_POST
 (
     post_id              BIGINT UNSIGNED               NOT NULL AUTO_INCREMENT,
     company_id           BIGINT UNSIGNED DEFAULT NULL,
-    origin_post_id           BIGINT UNSIGNED DEFAULT NULL,
+    origin_post_id       BIGINT UNSIGNED DEFAULT NULL,
+    job_category         VARCHAR(255)    DEFAULT NULL,
     post_title           VARCHAR(255)                  NOT NULL,
     content              TEXT            DEFAULT NULL,
     min_career           VARCHAR(255)    DEFAULT NULL,
@@ -112,11 +114,11 @@ CREATE INDEX SKILL_TILE_INDEX ON TB_SKILL (title);
 
 CREATE TABLE TB_POST_SKILL
 (
-    post_skill_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    post_id       BIGINT UNSIGNED NOT NULL,
-    skill_id      BIGINT UNSIGNED NOT NULL,
-    created_at DATETIME DEFAULT NOW() NOT NULL,
-    updated_at DATETIME DEFAULT NOW() NOT NULL,
+    post_skill_id BIGINT UNSIGNED        NOT NULL AUTO_INCREMENT,
+    post_id       BIGINT UNSIGNED        NOT NULL,
+    skill_id      BIGINT UNSIGNED        NOT NULL,
+    created_at    DATETIME DEFAULT NOW() NOT NULL,
+    updated_at    DATETIME DEFAULT NOW() NOT NULL,
     PRIMARY KEY (post_skill_id),
     CONSTRAINT fk_post_skill_to_post FOREIGN KEY (post_id) REFERENCES TB_HIRING_POST (post_id),
     CONSTRAINT fk_post_skill_to_skill FOREIGN KEY (skill_id) REFERENCES TB_SKILL (skill_id)

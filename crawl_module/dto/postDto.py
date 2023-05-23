@@ -2,6 +2,7 @@ class Post:
     def __init__(
         self,
         company_name,
+        job_category,
         post_title,
         min_career,
         max_career,
@@ -11,6 +12,7 @@ class Post:
         origin_post_id=None,
     ):
         self.company_name = company_name
+        self.job_category = job_category
         self.post_title = post_title
         self.min_career = min_career
         self.max_career = max_career

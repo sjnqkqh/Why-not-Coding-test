@@ -7,6 +7,7 @@ from crawl_module.domain.base_model import BaseModel
 
 class TbCompany(BaseModel):
     company_id = BigAutoField()
+    origin_company_id = BigIntegerField()
     company_name = CharField(max_length=255)
     industry_type = CharField(max_length=255, null=True)
     company_type = CharField(max_length=255, null=True)

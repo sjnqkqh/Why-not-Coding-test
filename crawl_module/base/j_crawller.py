@@ -13,8 +13,8 @@ with open("../config/config.json") as f:
 
 
 # 채용 공고 검색 API 호출
-def crawl_post_list():
-    url = config["jp"]["search_api"]
+def crawl_post_list(page):
+    url = URL(config["jp"]["search_api"]).update_query({"page": page})
     response = requests.get(url)
 
     # 요청에 성공한 경우, response.json() 메서드를 사용하여 응답 데이터를 파싱합니다.
@@ -41,6 +41,7 @@ def crawl_post_detail(url):
 def convert_brief_post_to_dto(brief_post_json: dict):
     return Post(
         company_name=brief_post_json.get("companyName"),
+        job_category=brief_post_json.get("jobCategory"),
         post_title=brief_post_json.get("title"),
         min_career=brief_post_json.get("minCareer"),
         max_career=brief_post_json.get("maxCareer"),
@@ -57,11 +58,11 @@ def convert_brief_post_to_dto(brief_post_json: dict):
 def convert_post_json_to_dto(post_json: dict):
     post = convert_brief_post_to_dto(post_json)
     post.post_content = (
-        post_json.get("responsibility")
-        + post_json.get("qualifications")
-        + post_json.get("preferredRequirements")
-        + post_json.get("welfares")
-        + post_json.get("recruitProcess")
+            post_json.get("responsibility")
+            + post_json.get("qualifications")
+            + post_json.get("preferredRequirements")
+            + post_json.get("welfares")
+            + post_json.get("recruitProcess")
     )
     print(post_json.get("recruitProcess"))
     post.min_career = post_json.get("minCareer")
@@ -83,12 +84,12 @@ def download_image(url):
 
 
 # 채용 공고 목록에서 회사 리스트 추출
-def get_company_name_list(position_list):
-    company_name_list = []
+def get_company_list(position_list):
+    company_dict = dict()
     for position in position_list:
-        company_name_list.append(position.get("companyName"))
+        company_dict[position.get("companyName")] = position.get("companyProfileId")
 
-    return set(company_name_list)
+    return company_dict
 
 
 # 채용 공고 목록에서 기술 스택 리스트 추출
@@ -101,12 +102,13 @@ def get_skill_list(position_list):
 
 
 # 채용 공고 목록 조회 및 저장
-def save_positions():
-    positions = crawl_post_list()
-    company_name_list = get_company_name_list(positions)
+@db.atomic()
+def save_positions(page):
+    positions = crawl_post_list(page)
+    company_dict = get_company_list(positions)
 
     # DB에 없는 회사 등록
-    save_not_exist_company_with_company_name(company_name_list)
+    save_not_exist_company_with_brief_company(company_dict)
 
     # 채용 공고 저장
     time.sleep(1)
@@ -133,4 +135,6 @@ def save_positions():
         time.sleep(1)
 
 
-save_positions()
+for i in range(1, 2):
+    save_positions(i)
+    time.sleep(5)

@@ -10,6 +10,7 @@ class TbHiringPost(BaseModel):
     post_id = BigAutoField()
     origin_post_id = BigIntegerField(null=True)
     company_id = ForeignKeyField(TbCompany, backref="hiring_posts")
+    job_category = CharField(max_length=255, null=True)
     post_title = CharField(max_length=255)
     content = TextField(null=True)
     min_career = CharField(max_length=255, null=True)
