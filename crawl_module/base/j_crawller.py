@@ -140,7 +140,7 @@ def save_positions(page):
 logger = logging.getLogger()
 
 # 로그의 출력 기준 설정
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 # log 출력 형식
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -151,13 +151,13 @@ stream_handler.setFormatter(formatter)
 logger.addHandler(stream_handler)
 
 # log를 파일에 출력
-file_handler = logging.FileHandler("my.log")
+file_handler = logging.FileHandler(datetime.now().strftime("%Y-%m-%d")+"_crawl.log")
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 for i in range(179, 180):
-    # try:
-    save_positions(i)
-    # except:
-    #     logger.error(f"{i}번째 페이지 크롤링 에러 발생")
+    try:
+        save_positions(i)
+    except:
+        logger.error(f"{i}번째 페이지 크롤링 에러 발생")
     time.sleep(5)
