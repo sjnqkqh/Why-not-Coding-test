@@ -74,6 +74,7 @@ CREATE TABLE TB_HIRING_POST
     job_category         VARCHAR(255)    DEFAULT NULL,
     post_title           VARCHAR(255)                  NOT NULL,
     content              TEXT            DEFAULT NULL,
+    recruitment_process  TEXT            DEFAULT NULL,
     min_career           VARCHAR(255)    DEFAULT NULL,
     max_career           VARCHAR(255)    DEFAULT NULL,
     education            VARCHAR(255)    DEFAULT NULL,

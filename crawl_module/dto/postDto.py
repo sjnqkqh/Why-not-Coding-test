@@ -1,15 +1,16 @@
 class Post:
     def __init__(
-        self,
-        company_name,
-        job_category,
-        post_title,
-        min_career,
-        max_career,
-        tech_stacks,
-        locations,
-        post_url,
-        origin_post_id=None,
+            self,
+            company_name,
+            job_category,
+            post_title,
+            min_career,
+            max_career,
+            tech_stacks,
+            locations,
+            post_url,
+            origin_post_id=None,
+
     ):
         self.company_name = company_name
         self.job_category = job_category
@@ -24,6 +25,7 @@ class Post:
         self._post_content = None
         self._education = None
         self._employment_type = None
+        self._recruitment_process = None
 
     @property
     def post_content(self):
@@ -56,3 +58,11 @@ class Post:
     @origin_post_id.setter
     def origin_post_id(self, value):
         self._origin_post_id = value
+
+    @property
+    def recruitment_process(self):
+        return self._recruitment_process
+
+    @recruitment_process.setter
+    def recruitment_process(self, value):
+        self._recruitment_process = value

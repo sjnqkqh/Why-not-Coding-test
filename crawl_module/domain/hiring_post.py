@@ -13,6 +13,7 @@ class TbHiringPost(BaseModel):
     job_category = CharField(max_length=255, null=True)
     post_title = CharField(max_length=255)
     content = TextField(null=True)
+    recruitment_process = TextField(null=True)
     min_career = CharField(max_length=255, null=True)
     max_career = CharField(max_length=255, null=True)
     education = CharField(max_length=255, null=True)

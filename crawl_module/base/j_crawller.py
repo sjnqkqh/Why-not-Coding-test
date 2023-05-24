@@ -1,4 +1,5 @@
 import json
+import logging
 import shutil
 import time
 import uuid
@@ -58,13 +59,13 @@ def convert_brief_post_to_dto(brief_post_json: dict):
 def convert_post_json_to_dto(post_json: dict):
     post = convert_brief_post_to_dto(post_json)
     post.post_content = (
-            post_json.get("responsibility")
-            + post_json.get("qualifications")
-            + post_json.get("preferredRequirements")
-            + post_json.get("welfares")
-            + post_json.get("recruitProcess")
+        post_json.get("responsibility")
+        + post_json.get("qualifications")
+        + post_json.get("preferredRequirements")
+        + post_json.get("welfares")
+        + post_json.get("recruitProcess")
     )
-    print(post_json.get("recruitProcess"))
+    post.recruitment_process = post_json.get("recruitProcess")
     post.min_career = post_json.get("minCareer")
     post.max_career = post_json.get("maxCareer")
     post.education = post_json.get("education")
@@ -135,6 +136,28 @@ def save_positions(page):
         time.sleep(1)
 
 
-for i in range(1, 2):
+# 로그 생성
+logger = logging.getLogger()
+
+# 로그의 출력 기준 설정
+logger.setLevel(logging.INFO)
+
+# log 출력 형식
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
+# log 출력
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+logger.addHandler(stream_handler)
+
+# log를 파일에 출력
+file_handler = logging.FileHandler("my.log")
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
+for i in range(179, 180):
+    # try:
     save_positions(i)
+    # except:
+    #     logger.error(f"{i}번째 페이지 크롤링 에러 발생")
     time.sleep(5)
