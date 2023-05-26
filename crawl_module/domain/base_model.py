@@ -7,7 +7,7 @@ with open("../config/config.json") as f:
     config = json.load(f)
 
 logger = logging.getLogger("peewee")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
 db = MySQLDatabase(

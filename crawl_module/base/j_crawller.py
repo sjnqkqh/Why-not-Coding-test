@@ -58,13 +58,12 @@ def convert_brief_post_to_dto(brief_post_json: dict):
 # 채용 공고 상세 정보 추가
 def convert_post_json_to_dto(post_json: dict):
     post = convert_brief_post_to_dto(post_json)
-    post.post_content = (
-        post_json.get("responsibility")
-        + post_json.get("qualifications")
-        + post_json.get("preferredRequirements")
-        + post_json.get("welfares")
-        + post_json.get("recruitProcess")
-    )
+    post.post_content = ""
+    arr = ["responsibility", "qualifications","preferredRequirements","welfares", "recruitProcess"]
+    for item in arr:
+        if post_json.get(item) is not None:
+            post.post_content += post_json.get(item)
+
     post.recruitment_process = post_json.get("recruitProcess")
     post.min_career = post_json.get("minCareer")
     post.max_career = post_json.get("maxCareer")
@@ -140,7 +139,7 @@ def save_positions(page):
 logger = logging.getLogger()
 
 # 로그의 출력 기준 설정
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.ERROR)
 
 # log 출력 형식
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -151,11 +150,11 @@ stream_handler.setFormatter(formatter)
 logger.addHandler(stream_handler)
 
 # log를 파일에 출력
-file_handler = logging.FileHandler(datetime.now().strftime("%Y-%m-%d")+"_crawl.log")
+file_handler = logging.FileHandler(datetime.now().strftime("%Y-%m-%d")+"_crawl.log", encoding='UTF-8')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
-for i in range(179, 180):
+for i in range(1, 182):
     try:
         save_positions(i)
     except:
