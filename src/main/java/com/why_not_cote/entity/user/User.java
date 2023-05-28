@@ -1,4 +1,4 @@
-package com.why_not_cote.entity;
+package com.why_not_cote.entity.user;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.why_not_cote.dto.user.req.UserCreateReqDto;
+import com.why_not_cote.entity.CommonBaseDateTime;
 import com.why_not_cote.util.code.YnCode;
 
 import lombok.Getter;

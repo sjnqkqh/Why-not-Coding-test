@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.why_not_cote.config.EnableMockMvcUTF8;
 import com.why_not_cote.config.RestDocConfiguration;
-import com.why_not_cote.entity.User;
+import com.why_not_cote.entity.user.User;
 import com.why_not_cote.dto.auth.req.CheckPhoneAuthReqDto;
 import com.why_not_cote.dto.auth.req.PasswordResetPhoneAuthReqDto;
 import com.why_not_cote.dto.auth.req.SignInPhoneAuthReqDto;

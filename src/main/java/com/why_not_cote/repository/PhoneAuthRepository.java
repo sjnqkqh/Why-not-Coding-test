@@ -1,6 +1,6 @@
 package com.why_not_cote.repository;
 
-import com.why_not_cote.entity.PhoneAuth;
+import com.why_not_cote.entity.user.PhoneAuth;
 import com.why_not_cote.util.code.AuthTypeCode;
 import com.why_not_cote.util.code.TelecomCode;
 

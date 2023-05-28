@@ -1,6 +1,6 @@
 package com.why_not_cote.dto.user.resp;
 
-import com.why_not_cote.entity.User;
+import com.why_not_cote.entity.user.User;
 import com.why_not_cote.util.EncryptUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

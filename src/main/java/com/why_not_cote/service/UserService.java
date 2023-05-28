@@ -15,7 +15,7 @@ import com.why_not_cote.dto.user.req.LoginReqDto;
 import com.why_not_cote.dto.user.req.PasswordResetReqDto;
 import com.why_not_cote.dto.user.req.UserCreateReqDto;
 import com.why_not_cote.dto.user.resp.UserInfoRespDto;
-import com.why_not_cote.entity.User;
+import com.why_not_cote.entity.user.User;
 import com.why_not_cote.repository.UserRepository;
 import com.why_not_cote.util.code.ApiExceptionCode;
 import com.why_not_cote.util.BcryptUtil;

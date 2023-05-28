@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
-public class SelfApplication {
+public class WhyNotCoteApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SelfApplication.class, args);
+        SpringApplication.run(WhyNotCoteApplication.class, args);
     }
 
 }

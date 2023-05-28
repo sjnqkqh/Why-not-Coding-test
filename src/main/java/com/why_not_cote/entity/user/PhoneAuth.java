@@ -1,7 +1,8 @@
-package com.why_not_cote.entity;
+package com.why_not_cote.entity.user;
 
 import com.why_not_cote.dto.auth.req.PasswordResetPhoneAuthReqDto;
 import com.why_not_cote.dto.auth.req.SignInPhoneAuthReqDto;
+import com.why_not_cote.entity.CommonBaseDateTime;
 import com.why_not_cote.util.code.AuthTypeCode;
 import com.why_not_cote.util.code.TelecomCode;
 import com.why_not_cote.util.code.YnCode;

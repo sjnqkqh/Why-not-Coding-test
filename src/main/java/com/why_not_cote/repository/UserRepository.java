@@ -1,6 +1,6 @@
 package com.why_not_cote.repository;
 
-import com.why_not_cote.entity.User;
+import com.why_not_cote.entity.user.User;
 import com.why_not_cote.util.code.YnCode;
 
 import java.util.ArrayList;

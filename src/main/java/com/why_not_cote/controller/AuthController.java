@@ -1,6 +1,6 @@
 package com.why_not_cote.controller;
 
-import com.why_not_cote.entity.User;
+import com.why_not_cote.entity.user.User;
 import com.why_not_cote.dto.CommonRespDto;
 import com.why_not_cote.dto.auth.req.CheckPhoneAuthReqDto;
 import com.why_not_cote.dto.auth.req.PasswordResetPhoneAuthReqDto;

@@ -1,8 +1,8 @@
 package com.why_not_cote.service;
 
 import com.why_not_cote.config.CommonException;
-import com.why_not_cote.entity.PhoneAuth;
-import com.why_not_cote.entity.User;
+import com.why_not_cote.entity.user.PhoneAuth;
+import com.why_not_cote.entity.user.User;
 import com.why_not_cote.dto.auth.req.CheckPhoneAuthReqDto;
 import com.why_not_cote.dto.auth.req.PasswordResetPhoneAuthReqDto;
 import com.why_not_cote.dto.auth.req.SignInPhoneAuthReqDto;
