@@ -12,14 +12,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class HirePostRepositoryImpl implements HirePostRepositoryCustom{
+public class HirePostRepositoryImpl implements HirePostRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
     @Override
     public List<HirePost> getHirePostListBySkillName(List<String> skillNameList) {
         QHirePost hirePost = QHirePost.hirePost;
-
 
         return queryFactory.selectFrom(hirePost)
             .innerJoin(postSkill).on(postSkill.hirePost.eq(hirePost))

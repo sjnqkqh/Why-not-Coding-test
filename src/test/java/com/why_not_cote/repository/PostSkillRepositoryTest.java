@@ -115,13 +115,14 @@ public class PostSkillRepositoryTest {
     @Test
     @DisplayName("특정 기술명에 따른 채용 공고 조회 테스트")
     @Transactional(readOnly = true)
-    public void testFindHirePostBySkillName(){
+    public void testFindHirePostBySkillName() {
         // Given
         String skillName = "Java";
 
         // When
         System.out.println("hirePostRepositoryCustom = " + hirePostRepositoryCustom);
-        List<HirePost> postList = hirePostRepositoryCustom.getHirePostListBySkillName(List.of(skillName));
+        List<HirePost> postList =
+            hirePostRepositoryCustom.getHirePostListBySkillName(List.of(skillName));
 
         // Then
         assertThat(postList.size()).isEqualTo(2);
