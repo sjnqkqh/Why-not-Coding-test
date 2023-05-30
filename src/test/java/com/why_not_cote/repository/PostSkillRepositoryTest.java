@@ -32,6 +32,9 @@ public class PostSkillRepositoryTest {
     @Autowired
     private SkillRepository skillRepository;
 
+    @Autowired
+    private HirePostRepositoryCustom hirePostRepositoryCustom;
+
     @BeforeAll
     @Rollback(value = false)
     public static void setTestPostSkillData(
@@ -117,8 +120,11 @@ public class PostSkillRepositoryTest {
         String skillName = "Java";
 
         // When
+        System.out.println("hirePostRepositoryCustom = " + hirePostRepositoryCustom);
+        List<HirePost> postList = hirePostRepositoryCustom.getHirePostListBySkillName(List.of(skillName));
 
         // Then
+        assertThat(postList.size()).isEqualTo(2);
     }
 
 }
