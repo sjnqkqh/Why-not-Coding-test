@@ -1,7 +1,7 @@
 package com.why_not_cote.entity.company;
 
 import com.why_not_cote.entity.CommonBaseDateTime;
-import com.why_not_cote.entity.post.HiringPost;
+import com.why_not_cote.entity.post.HirePost;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +15,7 @@ public class Company extends CommonBaseDateTime {
     private Long id;
 
     @OneToMany(mappedBy = "company")
-    private List<HiringPost> postList;
+    private List<HirePost> postList;
 
     @Column(name = "origin_company_id")
     private String originCompanyId;
