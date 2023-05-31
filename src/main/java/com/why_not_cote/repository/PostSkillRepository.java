@@ -5,5 +5,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostSkillRepository extends JpaRepository<PostSkill, Long> {
-    List<PostSkill> findPostSkillBySkill_TitleIn(List<String> titleList);
+    List<PostSkill> findPostSkillBySkill_TitleInOrderByPostSkillId(List<String> titleList);
 }

@@ -75,20 +75,6 @@ public class HirePostRepositoryTest {
         assertThat(postSkillList.size()).isEqualTo(6);
     }
 
-//    @Test
-//    @DisplayName("특정 기술명에 따른 채용 공고 조회")
-//    @Transactional(readOnly = true)
-//    public void testFindHirePostBySkillName() {
-//        // Given
-//        List<String> titleList= List.of("Java");
-//
-//        // When
-//        postSkillRepository.findPostSkillBySkill_TitleIn(titleList);
-//
-//        // Then
-//        assertThat(postList.size()).isEqualTo(2);
-//    }
-
     @Test
     @DisplayName("직무 카테고리에 따른 공고 목록 검색")
     @Transactional(readOnly = true)

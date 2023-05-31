@@ -1,12 +1,9 @@
 package com.why_not_cote.repository;
 
-import static com.why_not_cote.entity.post.QSkill.skill;
-
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.why_not_cote.entity.post.HirePost;
 import com.why_not_cote.entity.post.QHirePost;
-import com.why_not_cote.entity.post.QPostSkill;
 import com.why_not_cote.util.code.YnCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,19 +16,17 @@ public class HirePostRepositoryImpl implements HirePostRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
     QHirePost hirePost = QHirePost.hirePost;
-    QPostSkill postSkill = QPostSkill.postSkill;
 
     @Override
     public List<HirePost> getHirePostListBySkillName(
-        List<Long> postIdList,
+        List<HirePost> postList,
         List<String> jobCategoryList,
         YnCode codingTestYn,
         YnCode assignmentYn) {
 
-        return queryFactory.selectFrom(hirePost).distinct()
-            .innerJoin(postSkill).on(postSkill.hirePost.eq(hirePost))
-            .innerJoin(skill).on(postSkill.skill.eq(skill))
+        return queryFactory.selectFrom(hirePost)
             .where(
+                hirePostIn(postList),
                 jobCategoryIn(jobCategoryList),
                 codingTestYnEq(codingTestYn),
                 assignmentYnEq(assignmentYn)
@@ -40,12 +35,12 @@ public class HirePostRepositoryImpl implements HirePostRepositoryCustom {
             .fetch();
     }
 
-    private BooleanExpression skillTitleIn(List<String> titleList) {
-        if (ObjectUtils.isEmpty(titleList)) {
+    private BooleanExpression hirePostIn(List<HirePost> postList) {
+        if (ObjectUtils.isEmpty(postList)) {
             return null;
         }
 
-        return postSkill.skill.title.in(titleList);
+        return  hirePost.in(postList);
     }
 
     private BooleanExpression jobCategoryIn(List<String> jobCategoryList) {

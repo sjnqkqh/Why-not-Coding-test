@@ -8,7 +8,7 @@ public interface HirePostRepositoryCustom {
 
 
     List<HirePost> getHirePostListBySkillName(
-        List<Long> postIdList,
+        List<HirePost> hirePostList,
         List<String> jobCategoryList,
         YnCode codingTestYn,
         YnCode assignmentYn);

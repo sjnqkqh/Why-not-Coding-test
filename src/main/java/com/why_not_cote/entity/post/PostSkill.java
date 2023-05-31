@@ -41,8 +41,6 @@ public class PostSkill extends CommonBaseDateTime {
     public String toString() {
         return "PostSkill{" +
             "postSkillId=" + postSkillId +
-            ", hiringPost=" + hirePost +
-            ", skill=" + skill +
             '}';
     }
 }
