@@ -19,11 +19,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.transaction.annotation.Transactional;
 
+@TestInstance(value = Lifecycle.PER_CLASS)
 @SpringBootTest(properties = "spring.config.location=classpath:application-test.yml")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
-@TestInstance(value = Lifecycle.PER_CLASS)
-@TestExecutionListeners(value = {TestIsolationListener.class,}, mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
+@TestExecutionListeners(
+    value = {TestIsolationListener.class},
+    mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
+)
 public class HirePostRepositoryTest {
 
     @Autowired

@@ -18,11 +18,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.transaction.annotation.Transactional;
 
+@TestInstance(value = Lifecycle.PER_CLASS)
 @SpringBootTest(properties = "spring.config.location=classpath:application-test.yml")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@TestInstance(value = Lifecycle.PER_CLASS)
 @Transactional
-@TestExecutionListeners(value = {TestIsolationListener.class,}, mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
+@TestExecutionListeners(
+    value = {TestIsolationListener.class},
+    mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
+)
 class PostSkillRepositoryTest {
 
     @Autowired
@@ -33,9 +36,6 @@ class PostSkillRepositoryTest {
 
     @Autowired
     private SkillRepository skillRepository;
-
-    @Autowired
-    private HirePostRepositoryCustom hirePostRepositoryCustom;
 
 
     @BeforeAll
