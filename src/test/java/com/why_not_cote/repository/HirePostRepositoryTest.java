@@ -2,7 +2,7 @@ package com.why_not_cote.repository;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.why_not_cote.config.TestIsolationListener;
+import com.why_not_cote.config.DataIsolateTest;
 import com.why_not_cote.entity.post.HirePost;
 import com.why_not_cote.entity.post.PostSkill;
 import com.why_not_cote.entity.post.Skill;
@@ -11,22 +11,11 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.transaction.annotation.Transactional;
 
-@TestInstance(value = Lifecycle.PER_CLASS)
-@SpringBootTest(properties = "spring.config.location=classpath:application-test.yml")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Transactional
-@TestExecutionListeners(
-    value = {TestIsolationListener.class},
-    mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
-)
+
+@DataIsolateTest
 public class HirePostRepositoryTest {
 
     @Autowired

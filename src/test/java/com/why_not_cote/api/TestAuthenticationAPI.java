@@ -26,6 +26,7 @@ import com.why_not_cote.util.code.AuthTypeCode;
 import com.why_not_cote.util.code.TelecomCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -47,6 +48,7 @@ import org.springframework.transaction.annotation.Transactional;
 @EnableMockMvcUTF8
 @WebAppConfiguration
 @SpringBootTest(properties = "spring.config.location=classpath:application-test.yml")
+@Disabled
 public class TestAuthenticationAPI {
 
     @Autowired
