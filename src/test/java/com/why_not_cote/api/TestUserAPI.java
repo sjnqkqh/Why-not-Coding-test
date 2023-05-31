@@ -48,7 +48,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @EnableMockMvcUTF8
 @WebAppConfiguration
-@SpringBootTest
+@SpringBootTest(properties = "spring.config.location=classpath:application-test.yml")
 public class TestUserAPI {
 
 

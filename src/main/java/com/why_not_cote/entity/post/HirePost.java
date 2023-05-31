@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicInsert;
 
 @Entity
@@ -56,6 +57,7 @@ public class HirePost extends CommonBaseDateTime {
     @Column(name = "recruitment_process")
     private String recruitmentProcess;
 
+    @BatchSize(size = 30)
     @OneToMany(targetEntity = Skill.class)
     @JoinTable(name = "TB_POST_SKILL",
             joinColumns = @JoinColumn(name = "POST_ID"),
