@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MYSQL;
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+
+# JWT 관련 설정
+jwt.token:
+  secret-key: TEST
+  issuer: TEST
+  audience: CUSTOMERS
+
+
+# logging
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
