@@ -6,6 +6,7 @@ import com.why_not_cote.entity.post.HirePost;
 import com.why_not_cote.entity.post.QHirePost;
 import com.why_not_cote.util.code.YnCode;
 import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ObjectUtils;
@@ -36,11 +37,11 @@ public class HirePostRepositoryImpl implements HirePostRepositoryCustom {
     }
 
     private BooleanExpression hirePostIn(List<HirePost> postList) {
-        if (ObjectUtils.isEmpty(postList)) {
+        if (Objects.isNull(postList)) {
             return null;
         }
 
-        return  hirePost.in(postList);
+        return hirePost.in(postList);
     }
 
     private BooleanExpression jobCategoryIn(List<String> jobCategoryList) {
