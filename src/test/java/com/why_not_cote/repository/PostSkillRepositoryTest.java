@@ -47,6 +47,20 @@ class PostSkillRepositoryTest {
         assertThat(result.size()).isEqualTo(2);
     }
 
+    @Test
+    @DisplayName("존재하지 않는 기술명으로 공고-스킬 매핑 데이터 조회")
+    @Transactional(readOnly = true)
+    public void testFindPostSkillListByUnsavedSkillTitleList() {
+        // Given
+        List<String> titleList = List.of("Untitled");
+
+        // When
+        List<PostSkill> result = postSkillRepository.findPostSkillBySkill_TitleInOrderByPostSkillId(titleList);
+
+        // Then
+        assertThat(result.size()).isEqualTo(0);
+    }
+
 
 
 }
