@@ -48,7 +48,7 @@ class HirePostServiceTest {
 
     @Test
     @DisplayName("검색 조건이 하나도 없이 채용 공고 조회")
-    public void testSearchHirePostWithoutAnyKeyword() {
+    public void testSearchWithoutAnyKeyword() {
         // Given - Nothing
 
         // When
@@ -67,7 +67,7 @@ class HirePostServiceTest {
 
     @Test
     @DisplayName("기술명에 따른 채용 공고 조회")
-    public void testSearchHirePostBySkillTitle() {
+    public void testSearchBySkillTitle() {
         // Given
         List<String> titleList = List.of("Java");
 
@@ -87,7 +87,7 @@ class HirePostServiceTest {
 
     @Test
     @DisplayName("존재하지 않는 기술명으로 채용 공고 검색")
-    public void testSearchHirePostWithUnsavedSkillTitle() {
+    public void testSearchWithUnsavedSkillTitle() {
         // Given
         List<String> titleList = List.of("Untitled");
         List<HirePost> postSkillList = postSkillService.getPostSkillListByTitleList(titleList);
@@ -102,7 +102,7 @@ class HirePostServiceTest {
     @DisplayName("기술명+코테 유무로 검색")
     @ParameterizedTest
     @EnumSource(value = YnCode.class)
-    public void testSearchHirePostWithSkillAndCodingTestYn(YnCode codingTestYn) {
+    public void testSearchWithSkillAndCodingTestYn(YnCode codingTestYn) {
         // Given
         List<String> titleList = List.of("Java");
         List<HirePost> postSkillList = postSkillService.getPostSkillListByTitleList(titleList);
@@ -124,7 +124,7 @@ class HirePostServiceTest {
     @DisplayName("과제물 전형 유무로 채용공고 검색")
     @ParameterizedTest
     @EnumSource(YnCode.class)
-    public void testSearchHirePostWithAssignmentYn(YnCode assignmentYn) {
+    public void testSearchWithAssignmentYn(YnCode assignmentYn) {
         // Given - assignmentYn
 
         // When
@@ -141,7 +141,7 @@ class HirePostServiceTest {
     @DisplayName("직무 카테고리 채용 공고 검색")
     @ParameterizedTest
     @ValueSource(strings = {"웹 풀스택 개발자", "UnsavedCategory"})
-    public void testSearchHirePostWithSkillAndJobCategory(String jobCategory) {
+    public void testSearchWithSkillAndJobCategory(String jobCategory) {
         // Given
         List<String> jobCategoryList = List.of(jobCategory);
 

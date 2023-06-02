@@ -137,7 +137,7 @@ public class HirePostRepositoryTest {
 
     @Test
     @DisplayName("빈 카테고리 리스트로 채용 공고 검색")
-    public void testSearchHirePostWithEmptyJobCategoryAndEmptySkillList() {
+    public void testSearchWithEmptyJobCategoryAndEmptySkillList() {
         // Given
         List<String> jobCategory = new ArrayList<>();
 
