@@ -9,7 +9,6 @@ import com.why_not_cote.entity.post.Skill;
 import com.why_not_cote.util.code.YnCode;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +30,6 @@ public class HirePostRepositoryTest {
     @Autowired
     private HirePostRepositoryCustom hirePostRepositoryCustom;
 
-    @BeforeAll
-    public void setHirePostTestData() {
-        TestDataSet.insertPostTestData(
-            hirePostRepository, postSkillRepository, skillRepository
-        );
-    }
 
     // FIXME 테스트 코드 안정화 이후 제거 예정
     @Test
