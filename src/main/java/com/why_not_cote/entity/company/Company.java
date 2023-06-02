@@ -2,12 +2,22 @@ package com.why_not_cote.entity.company;
 
 import com.why_not_cote.entity.CommonBaseDateTime;
 import com.why_not_cote.entity.post.HirePost;
-
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @Table(name = "TB_COMPANY")
+@NoArgsConstructor
 public class Company extends CommonBaseDateTime {
     @Id
     @Column(name = "company_id")
@@ -44,4 +54,19 @@ public class Company extends CommonBaseDateTime {
     @Column(name = "thumbnail_url")
     private String thumbnailUrl;
 
+    @Builder
+    public Company(String originCompanyId, String companyName,
+        String industryType, String companyType, Long employeeCount, String address,
+        String homepage,
+        String phoneNumber, String thumbnailUrl) {
+        this.originCompanyId = originCompanyId;
+        this.companyName = companyName;
+        this.industryType = industryType;
+        this.companyType = companyType;
+        this.employeeCount = employeeCount;
+        this.address = address;
+        this.homepage = homepage;
+        this.phoneNumber = phoneNumber;
+        this.thumbnailUrl = thumbnailUrl;
+    }
 }

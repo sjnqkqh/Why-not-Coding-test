@@ -2,6 +2,7 @@ package com.why_not_cote.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.why_not_cote.entity.company.QCompany;
 import com.why_not_cote.entity.post.HirePost;
 import com.why_not_cote.entity.post.QHirePost;
 import com.why_not_cote.util.code.YnCode;
@@ -26,6 +27,8 @@ public class HirePostRepositoryImpl implements HirePostRepositoryCustom {
         YnCode assignmentYn) {
 
         return queryFactory.selectFrom(hirePost)
+            .join(hirePost.company, QCompany.company)
+            .fetchJoin()
             .where(
                 hirePostIn(postList),
                 jobCategoryIn(jobCategoryList),

@@ -3,11 +3,10 @@ package com.why_not_cote.service;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.why_not_cote.config.DataIsolateTest;
+import com.why_not_cote.dto.hirePost.resp.SearchHirePostRespDto;
 import com.why_not_cote.entity.post.HirePost;
-import com.why_not_cote.entity.post.Skill;
 import com.why_not_cote.util.code.YnCode;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,16 +30,10 @@ class HirePostServiceTest {
         // Given - Nothing
 
         // When
-        List<HirePost> result = hirePostService.searchHirePost(null, null, null, null);
+        List<SearchHirePostRespDto> result = hirePostService.searchHirePost(null, null, null, null);
 
         // Then
         assertThat(result.size()).isEqualTo(3);
-        for (HirePost post : result) {
-            assertThat(Hibernate.isInitialized(post)).isTrue();
-            for (Skill skill : post.getSkillList()) {
-                assertThat(Hibernate.isInitialized(skill)).isTrue();
-            }
-        }
     }
 
 
@@ -52,16 +45,12 @@ class HirePostServiceTest {
 
         // When
         List<HirePost> postSkillList = postSkillService.getPostSkillListByTitleList(titleList);
-        List<HirePost> result = hirePostService.searchHirePost(postSkillList, null, null, null);
+        List<SearchHirePostRespDto> result = hirePostService.searchHirePost(postSkillList, null, null, null);
 
         // Then
         assertThat(result.size()).isEqualTo(2);
         assertThat(result.get(0).getPostId()).isEqualTo(1);
         assertThat(result.get(1).getPostId()).isEqualTo(2);
-
-        for (HirePost post : result) {
-            assertThat(Hibernate.isInitialized(post)).isTrue();
-        }
     }
 
     @Test
@@ -72,7 +61,7 @@ class HirePostServiceTest {
         List<HirePost> postSkillList = postSkillService.getPostSkillListByTitleList(titleList);
 
         // When
-        List<HirePost> postList = hirePostService.searchHirePost(postSkillList, null, null, null);
+        List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(postSkillList, null, null, null);
 
         // Then
         assertThat(postList.size()).isEqualTo(0);
@@ -87,7 +76,7 @@ class HirePostServiceTest {
         List<HirePost> postSkillList = postSkillService.getPostSkillListByTitleList(titleList);
 
         // When
-        List<HirePost> postList = hirePostService.searchHirePost(postSkillList, null, codingTestYn,
+        List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(postSkillList, null, codingTestYn,
             null);
 
         // Then
@@ -107,7 +96,7 @@ class HirePostServiceTest {
         // Given - assignmentYn
 
         // When
-        List<HirePost> postList = hirePostService.searchHirePost(null, null,
+        List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(null, null,
             null, assignmentYn);
 
         // Then
@@ -125,7 +114,7 @@ class HirePostServiceTest {
         List<String> jobCategoryList = List.of(jobCategory);
 
         // When
-        List<HirePost> postList = hirePostService.searchHirePost(null, jobCategoryList,
+        List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(null, jobCategoryList,
             null, null);
 
         // Then

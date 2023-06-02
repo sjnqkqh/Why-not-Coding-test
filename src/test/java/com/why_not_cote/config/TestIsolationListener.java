@@ -1,8 +1,10 @@
 package com.why_not_cote.config;
 
+import com.why_not_cote.entity.company.Company;
 import com.why_not_cote.entity.post.HirePost;
 import com.why_not_cote.entity.post.PostSkill;
 import com.why_not_cote.entity.post.Skill;
+import com.why_not_cote.repository.CompanyRepository;
 import com.why_not_cote.repository.HirePostRepository;
 import com.why_not_cote.repository.PostSkillRepository;
 import com.why_not_cote.repository.SkillRepository;
@@ -22,6 +24,8 @@ public class TestIsolationListener extends AbstractTestExecutionListener {
             .getBean("postSkillRepository", PostSkillRepository.class);
         SkillRepository skillRepository = testContext.getApplicationContext()
             .getBean("skillRepository", SkillRepository.class);
+        CompanyRepository companyRepository = testContext.getApplicationContext()
+            .getBean("companyRepository", CompanyRepository.class);
 
         // 스킬 목록 세팅
         Skill java = new Skill(1L, "Java");
@@ -30,9 +34,16 @@ public class TestIsolationListener extends AbstractTestExecutionListener {
         Skill kotlin = new Skill(4L, "Kotlin");
         skillRepository.saveAll(List.of(java, spring, node, kotlin));
 
+        // 회사 정보 세팅
+        Company companyA = Company.builder().companyName("회사 A").build();
+        Company companyB = Company.builder().companyName("회사 B").build();
+        Company companyC = Company.builder().companyName("회사 C").build();
+        companyRepository.saveAll(List.of(companyA, companyB, companyC));
+
         // 채용 공고 세팅
         HirePost javaSrpingHirePost = HirePost.builder()
             .postId(1L)
+            .company(companyA)
             .originPostId(1L)
             .postTitle("Back End 채용 (코테, 과제 X)")
             .jobCategory("서버/백엔드 개발자")
@@ -41,6 +52,7 @@ public class TestIsolationListener extends AbstractTestExecutionListener {
 
         HirePost kotlinSpringHirePostWithCodingTest = HirePost.builder()
             .postId(2L)
+            .company(companyB)
             .originPostId(2L)
             .postTitle("Back End 채용 (코테O)")
             .codingTestYn(YnCode.Y)
@@ -51,6 +63,7 @@ public class TestIsolationListener extends AbstractTestExecutionListener {
 
         HirePost nodeHirePostWithAssignment = HirePost.builder()
             .postId(3L)
+            .company(companyC)
             .originPostId(3L)
             .postTitle("Full-stack 채용 (과제 O)")
             .codingTestYn(YnCode.N)
@@ -66,8 +79,6 @@ public class TestIsolationListener extends AbstractTestExecutionListener {
                 nodeHirePostWithAssignment
             )
         );
-
-        System.out.println("hirePostRepository.findAll()"+hirePostRepository.findAll());
 
         // 채용 공고별 스킬 매핑
         // Java+Spring

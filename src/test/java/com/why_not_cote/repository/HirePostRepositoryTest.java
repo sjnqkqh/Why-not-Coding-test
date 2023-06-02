@@ -4,11 +4,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.why_not_cote.config.DataIsolateTest;
 import com.why_not_cote.entity.post.HirePost;
-import com.why_not_cote.entity.post.PostSkill;
 import com.why_not_cote.entity.post.Skill;
 import com.why_not_cote.util.code.YnCode;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,44 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class HirePostRepositoryTest {
 
     @Autowired
-    private HirePostRepository hirePostRepository;
-
-    @Autowired
-    private PostSkillRepository postSkillRepository;
-
-    @Autowired
-    private SkillRepository skillRepository;
-
-    @Autowired
     private HirePostRepositoryCustom hirePostRepositoryCustom;
 
-
-    // FIXME 테스트 코드 안정화 이후 제거 예정
-    @Test
-    @DisplayName("데이터 세팅값 확인")
-    @Transactional(readOnly = true)
-    public void testFindAllSkill() {
-        // When
-        List<HirePost> postList = hirePostRepository.findAll();
-        List<Skill> skillList = skillRepository.findAll();
-        List<PostSkill> postSkillList = postSkillRepository.findAll();
-
-        // Do
-        System.out.println("======= 채용 공고 목록 =======");
-        for (HirePost item : postList) {
-            System.out.println(item);
-        }
-
-        System.out.println("======= 기술 스택 목록 =======");
-        for (Skill item : skillList) {
-            System.out.println(item);
-        }
-
-        // Then
-        assertThat(postList.size()).isEqualTo(3);
-        assertThat(skillList.size()).isEqualTo(4);
-        assertThat(postSkillList.size()).isEqualTo(6);
-    }
 
     @Test
     @DisplayName("직무 카테고리에 따른 공고 목록 검색")
@@ -140,5 +104,12 @@ public class HirePostRepositoryTest {
 
         // Then
         assertThat(postList.size()).isEqualTo(3);
+        for (HirePost post : postList) {
+            assertThat(Hibernate.isInitialized(post.getCompany())).isTrue();
+
+            for (Skill skill : post.getSkillList()) {
+                assertThat(Hibernate.isInitialized(skill)).isTrue();
+            }
+        }
     }
 }
