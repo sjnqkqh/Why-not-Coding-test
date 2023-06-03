@@ -2,7 +2,6 @@ package com.why_not_cote.service;
 
 import com.why_not_cote.dto.hirePost.resp.SearchHirePostRespDto;
 import com.why_not_cote.entity.post.HirePost;
-import com.why_not_cote.repository.HirePostRepository;
 import com.why_not_cote.repository.HirePostRepositoryCustom;
 import com.why_not_cote.util.code.YnCode;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class HirePostService {
 
-    private final HirePostRepository hirePostRepository;
     private final HirePostRepositoryCustom hirePostRepositoryCustom;
 
     @Transactional(readOnly = true)
