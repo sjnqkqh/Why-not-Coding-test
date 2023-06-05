@@ -10,6 +10,30 @@
 = Hiring REST API Document
 {docdatetime}
 
+== 채용 공고 관련
+
+=== 채용 공고 목록 검색
+
+채용 공고 목록 검색 API
+
+Information::
+- Method : `GET`
+- URL : `/api/hire-post/search
+- Request Type : `application/json`
+
+
+Request Parameter::
+include::{snippets}/searchHirePost/request-parameters.adoc[]
+
+Response Body::
+include::{snippets}/searchHirePost/response-fields.adoc[]
+
+Request Example::
+include::{snippets}/searchHirePost/http-request.adoc[]
+
+Response Example::
+include::{snippets}/searchHirePost/http-response.adoc[]
+
 == 인증 관련
 
 === 휴대전화 인증 [회원가입]
