@@ -4,11 +4,18 @@ import com.why_not_cote.entity.post.HirePost;
 import lombok.Getter;
 
 @Getter
-public class SearchHirePostRespDto extends HirePostDto{
+public class DetailHirePostRespDto extends HirePostDto {
 
-    public SearchHirePostRespDto(HirePost hirePost) {
+    private String content;
+    private String recruitProcess;
+
+    public DetailHirePostRespDto(HirePost hirePost) {
         this.postId = hirePost.getPostId();
         this.title = hirePost.getPostTitle();
+
+        this.content = hirePost.getContent();
+        this.recruitProcess = hirePost.getRecruitmentProcess();
+
         this.jobCategory = hirePost.getJobCategory();
 
         this.companyId = hirePost.getCompany().getId();
@@ -22,7 +29,4 @@ public class SearchHirePostRespDto extends HirePostDto{
         this.codingTestYn = hirePost.getCodingTestYn();
         this.assignmentYn = hirePost.getAssignmentYn();
     }
-
-
-
 }

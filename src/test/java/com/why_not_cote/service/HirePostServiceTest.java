@@ -1,12 +1,17 @@
 package com.why_not_cote.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.why_not_cote.config.CommonException;
 import com.why_not_cote.config.DataIsolateTest;
+import com.why_not_cote.dto.hirePost.resp.DetailHirePostRespDto;
 import com.why_not_cote.dto.hirePost.resp.SearchHirePostRespDto;
 import com.why_not_cote.entity.post.HirePost;
+import com.why_not_cote.entity.post.Skill;
 import com.why_not_cote.util.code.YnCode;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -45,7 +50,8 @@ class HirePostServiceTest {
 
         // When
         List<HirePost> postSkillList = postSkillService.getPostSkillListByTitleList(titleList);
-        List<SearchHirePostRespDto> result = hirePostService.searchHirePost(postSkillList, null, null, null);
+        List<SearchHirePostRespDto> result = hirePostService.searchHirePost(postSkillList, null,
+            null, null);
 
         // Then
         assertThat(result.size()).isEqualTo(2);
@@ -61,7 +67,8 @@ class HirePostServiceTest {
         List<HirePost> postSkillList = postSkillService.getPostSkillListByTitleList(titleList);
 
         // When
-        List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(postSkillList, null, null, null);
+        List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(postSkillList, null,
+            null, null);
 
         // Then
         assertThat(postList.size()).isEqualTo(0);
@@ -76,7 +83,8 @@ class HirePostServiceTest {
         List<HirePost> postSkillList = postSkillService.getPostSkillListByTitleList(titleList);
 
         // When
-        List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(postSkillList, null, codingTestYn,
+        List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(postSkillList, null,
+            codingTestYn,
             null);
 
         // Then
@@ -124,5 +132,48 @@ class HirePostServiceTest {
         } else {
             assertThat(postList.size()).isEqualTo(0);
         }
+    }
+
+    @Test
+    @DisplayName("Post Id로 채용 공고 상세 정보 조회 시, 엔티티 프록시 로딩 테스트")
+    public void testProxyInitializeOfGetHirePostDetailResult() {
+        // Given
+        Long postId = 1L;
+
+        // When
+        HirePost hirePost = hirePostService.getHirePostDetail(postId);
+
+        // Then
+        assertThat(Hibernate.isInitialized(hirePost)).isTrue();
+        assertThat(Hibernate.isInitialized(hirePost.getCompany())).isTrue();
+        for (Skill skill : hirePost.getSkillList()) {
+            assertThat(Hibernate.isInitialized(skill)).isTrue();
+        }
+    }
+
+    @Test
+    @DisplayName("Post Id로 채용 공고 상세 정보 조회")
+    public void testGetHirePostDetailSuccess() {
+        // Given
+        Long postId = 1L;
+
+        // When
+        DetailHirePostRespDto result = hirePostService.getHirePostDetailDto(postId);
+        HirePost hirePost = hirePostService.getHirePostDetail(postId);
+
+        // Then
+        assertThat(result.getPostId()).isEqualTo(hirePost.getPostId());
+        assertThat(result.getCompanyId()).isEqualTo(hirePost.getPostId());
+        assertThat(result.getTechStacks().size()).isEqualTo(hirePost.getSkillList().size());
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 Post Id로 채용 공고 상세 정보 조회")
+    public void testGetHirePostDetailWithNotExistPostId() {
+        // Given
+        Long postId = 999999L;
+
+        // When & Then
+        assertThrows(CommonException.class, ()-> hirePostService.getHirePostDetail(postId));
     }
 }
