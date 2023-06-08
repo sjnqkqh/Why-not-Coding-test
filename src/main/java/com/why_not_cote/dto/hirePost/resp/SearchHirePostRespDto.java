@@ -1,9 +1,11 @@
 package com.why_not_cote.dto.hirePost.resp;
 
 import com.why_not_cote.entity.post.HirePost;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class SearchHirePostRespDto extends HirePostDto{
 
     public SearchHirePostRespDto(HirePost hirePost) {

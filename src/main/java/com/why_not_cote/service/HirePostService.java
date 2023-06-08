@@ -32,7 +32,7 @@ public class HirePostService {
             return new ArrayList<>();
         }
 
-        List<HirePost> result = hirePostRepositoryCustom.getHirePostListBySkillName(
+        List<HirePost> result = hirePostRepositoryCustom.getHirePostListToSearch(
             postListByTechStacks, jobCategoryList, codingTestYn, assignmentYn);
 
         return result.stream().map(SearchHirePostRespDto::new).collect(Collectors.toList());
@@ -40,8 +40,10 @@ public class HirePostService {
 
     @Transactional(readOnly = true)
     public DetailHirePostRespDto getHirePostDetailDto(Long postId) {
-        HirePost hirePost = hirePostRepository.findById(postId)
-            .orElseThrow(() -> new CommonException(ApiExceptionCode.BAD_REQUEST_EXCEPTION));
+        System.out.println("asfgasfkbafka");
+        HirePost hirePost = hirePostRepository.findFirstByPostId(postId).orElseThrow(
+            () -> new CommonException(ApiExceptionCode.BAD_REQUEST_EXCEPTION)
+        );
 
         return new DetailHirePostRespDto(hirePost);
     }

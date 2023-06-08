@@ -4,7 +4,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.why_not_cote.config.DataIsolateTest;
 import com.why_not_cote.entity.post.HirePost;
-import com.why_not_cote.entity.post.Skill;
 import com.why_not_cote.util.code.YnCode;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class HirePostRepositoryTest {
 
         // When
         List<HirePost> postList =
-            hirePostRepositoryCustom.getHirePostListBySkillName(
+            hirePostRepositoryCustom.getHirePostListToSearch(
                 null,
                 jobCategoryList,
                 null,
@@ -51,9 +50,9 @@ public class HirePostRepositoryTest {
         YnCode codingTestN = YnCode.N;
 
         // When
-        List<HirePost> codingTestPostList = hirePostRepositoryCustom.getHirePostListBySkillName(
+        List<HirePost> codingTestPostList = hirePostRepositoryCustom.getHirePostListToSearch(
             null, null, codingTestY, null);
-        List<HirePost> noCodingTestPostList = hirePostRepositoryCustom.getHirePostListBySkillName(
+        List<HirePost> noCodingTestPostList = hirePostRepositoryCustom.getHirePostListToSearch(
             null, null, codingTestN, null);
 
         for (HirePost item : codingTestPostList) {
@@ -78,9 +77,9 @@ public class HirePostRepositoryTest {
         YnCode assignmentN = YnCode.N;
 
         // When
-        List<HirePost> assignmentPostList = hirePostRepositoryCustom.getHirePostListBySkillName(
+        List<HirePost> assignmentPostList = hirePostRepositoryCustom.getHirePostListToSearch(
             null, null, null, assignmentY);
-        List<HirePost> noAssignmentPostList = hirePostRepositoryCustom.getHirePostListBySkillName(
+        List<HirePost> noAssignmentPostList = hirePostRepositoryCustom.getHirePostListToSearch(
             null, null, null, assignmentN);
 
         // Then
@@ -99,17 +98,13 @@ public class HirePostRepositoryTest {
         List<String> jobCategory = new ArrayList<>();
 
         // When
-        List<HirePost> postList = hirePostRepositoryCustom.getHirePostListBySkillName(null,
+        List<HirePost> postList = hirePostRepositoryCustom.getHirePostListToSearch(null,
             jobCategory, null, null);
 
         // Then
         assertThat(postList.size()).isEqualTo(3);
         for (HirePost post : postList) {
             assertThat(Hibernate.isInitialized(post.getCompany())).isTrue();
-
-            for (Skill skill : post.getSkillList()) {
-                assertThat(Hibernate.isInitialized(skill)).isTrue();
-            }
         }
     }
 }

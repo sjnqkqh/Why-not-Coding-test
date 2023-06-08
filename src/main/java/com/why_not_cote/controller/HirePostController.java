@@ -1,5 +1,6 @@
 package com.why_not_cote.controller;
 
+import com.why_not_cote.dto.hirePost.resp.DetailHirePostRespDto;
 import com.why_not_cote.dto.hirePost.resp.SearchHirePostRespDto;
 import com.why_not_cote.entity.post.HirePost;
 import com.why_not_cote.service.HirePostService;
@@ -8,6 +9,7 @@ import com.why_not_cote.util.code.YnCode;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +32,11 @@ public class HirePostController {
 
         return hirePostService.searchHirePost(postListByTechStacks, jobCategoryList, codingTestYn,
             assignmentYn);
+    }
+
+    @GetMapping("/api/hire-post/{postId}")
+    public DetailHirePostRespDto getHirePostDetail(@PathVariable(name = "postId") Long postId) {
+
+        return hirePostService.getHirePostDetailDto(postId);
     }
 }

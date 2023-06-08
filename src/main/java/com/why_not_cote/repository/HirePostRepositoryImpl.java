@@ -20,7 +20,7 @@ public class HirePostRepositoryImpl implements HirePostRepositoryCustom {
     QHirePost hirePost = QHirePost.hirePost;
 
     @Override
-    public List<HirePost> getHirePostListBySkillName(
+    public List<HirePost> getHirePostListToSearch(
         List<HirePost> postList,
         List<String> jobCategoryList,
         YnCode codingTestYn,

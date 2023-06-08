@@ -8,7 +8,7 @@ import com.why_not_cote.config.DataIsolateTest;
 import com.why_not_cote.dto.hirePost.resp.DetailHirePostRespDto;
 import com.why_not_cote.dto.hirePost.resp.SearchHirePostRespDto;
 import com.why_not_cote.entity.post.HirePost;
-import com.why_not_cote.entity.post.Skill;
+import com.why_not_cote.util.code.ApiExceptionCode;
 import com.why_not_cote.util.code.YnCode;
 import java.util.List;
 import org.hibernate.Hibernate;
@@ -30,7 +30,7 @@ class HirePostServiceTest {
 
 
     @Test
-    @DisplayName("검색 조건이 하나도 없이 채용 공고 조회")
+    @DisplayName("검색 조건이 하나도 없이 채용 공고 목록 조회")
     public void testSearchWithoutAnyKeyword() {
         // Given - Nothing
 
@@ -39,6 +39,12 @@ class HirePostServiceTest {
 
         // Then
         assertThat(result.size()).isEqualTo(3);
+        for (SearchHirePostRespDto dto : result) {
+            assertThat(dto.getCompanyName()).isNotNull();
+            for (String skillTitle : dto.getTechStacks()) {
+                assertThat(skillTitle).isNotNull();
+            }
+        }
     }
 
 
@@ -145,10 +151,8 @@ class HirePostServiceTest {
 
         // Then
         assertThat(Hibernate.isInitialized(hirePost)).isTrue();
-        assertThat(Hibernate.isInitialized(hirePost.getCompany())).isTrue();
-        for (Skill skill : hirePost.getSkillList()) {
-            assertThat(Hibernate.isInitialized(skill)).isTrue();
-        }
+        assertThat(Hibernate.isInitialized(hirePost.getCompany())).isFalse();
+        assertThat(Hibernate.isInitialized(hirePost.getSkillList())).isFalse();
     }
 
     @Test
@@ -162,9 +166,22 @@ class HirePostServiceTest {
         HirePost hirePost = hirePostService.getHirePostDetail(postId);
 
         // Then
-        assertThat(result.getPostId()).isEqualTo(hirePost.getPostId());
-        assertThat(result.getCompanyId()).isEqualTo(hirePost.getPostId());
-        assertThat(result.getTechStacks().size()).isEqualTo(hirePost.getSkillList().size());
+        assertThat(result.getTitle()).isEqualTo(hirePost.getPostTitle());
+    }
+
+    @Test
+    @DisplayName("Post ID로 채용공고 DTO 형태로 조회")
+    public void testGetHirePostDetailDto() {
+        // Given
+        Long postId = 1L;
+
+        // When
+        DetailHirePostRespDto respDto = hirePostService.getHirePostDetailDto(postId);
+
+        // Then
+        assertThat(respDto.getPostId()).isEqualTo(1L);
+        assertThat(respDto.getCompanyName()).isNotNull();
+        assertThat(respDto.getTechStacks()).isNotNull();
     }
 
     @Test
@@ -174,6 +191,9 @@ class HirePostServiceTest {
         Long postId = 999999L;
 
         // When & Then
-        assertThrows(CommonException.class, ()-> hirePostService.getHirePostDetail(postId));
+        assertThrows(CommonException.class,
+            () -> hirePostService.getHirePostDetailDto(postId),
+            ApiExceptionCode.BAD_REQUEST_EXCEPTION.getMsg()
+        );
     }
 }

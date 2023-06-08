@@ -6,6 +6,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -78,6 +79,45 @@ class HirePostControllerTest {
 
         List<SearchHirePostRespDto> dtoList = convertResponseToSearchResultDtoList(mvcResult);
         assertThat(dtoList.size()).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("채용 공고 단건 조회")
+    public void testGetHirePostDetail() throws Exception {
+        // Given
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        Long postId = 1L;
+
+        // When
+        ResultActions result = mockMvc.perform(
+            RestDocumentationRequestBuilders.get("/api/hire-post/{postId}", postId)
+                .headers(headers)
+        );
+
+        // Then
+        result.andExpect(status().isOk())
+            .andDo(print())
+            .andDo(document("getHirePostDetail",
+                    pathParameters(
+                        parameterWithName("postId").description("채용 공고 ID")
+                    ),
+                    responseFields(
+                        fieldWithPath("postId").description("채용 공고 ID"),
+                        fieldWithPath("title").description("채용 공고명"),
+                        fieldWithPath("content").description("채용 상세내용"),
+                        fieldWithPath("recruitProcess").description("채용 절차"),
+                        fieldWithPath("jobCategory").description("직무 유형"),
+                        fieldWithPath("companyId").description("회사 ID"),
+                        fieldWithPath("companyName").description("회사명"),
+                        fieldWithPath("minCareer").description("최소 경력"),
+                        fieldWithPath("maxCareer").description("최대 경력"),
+                        fieldWithPath("techStacks").description("기술 스택"),
+                        fieldWithPath("codingTestYn").description("코딩 테스트 유무"),
+                        fieldWithPath("assignmentYn").description("과제물 전형 유무")
+                    )
+                )
+            );
     }
 
     @Test

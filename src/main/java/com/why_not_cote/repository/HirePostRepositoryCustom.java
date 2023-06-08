@@ -7,7 +7,7 @@ import java.util.List;
 public interface HirePostRepositoryCustom {
 
 
-    List<HirePost> getHirePostListBySkillName(
+    List<HirePost> getHirePostListToSearch(
         List<HirePost> hirePostList,
         List<String> jobCategoryList,
         YnCode codingTestYn,
