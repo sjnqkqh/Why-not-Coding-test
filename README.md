@@ -23,9 +23,8 @@ Why_not_cote 프로젝트는 사소한 불편함에서 시작된 1인 프로젝�
   - `Spring Boot 2.6.12`
   - `Java 11`
   - `Spring Data JPA`
-  - `Elastic Search (도입 고려 중)`
   - `Mysql 8.0`
-  - `Mockito`
+  - `AssertJ`
   - `RestDocs`
 
 
