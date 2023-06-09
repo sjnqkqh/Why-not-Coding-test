@@ -1,5 +1,6 @@
 package com.why_not_cote.repository;
 
+import static com.why_not_cote.util.PageableUtils.createPageable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.why_not_cote.config.DataIsolateTest;
@@ -34,7 +35,7 @@ public class HirePostRepositoryTest {
                 null,
                 jobCategoryList,
                 null,
-                null);
+                null, createPageable(0, 0));
 
         // Then
         assertThat(postList.size()).isEqualTo(1);
@@ -51,9 +52,9 @@ public class HirePostRepositoryTest {
 
         // When
         List<HirePost> codingTestPostList = hirePostRepositoryCustom.getHirePostListToSearch(
-            null, null, codingTestY, null);
+            null, null, codingTestY, null, createPageable(0, 0));
         List<HirePost> noCodingTestPostList = hirePostRepositoryCustom.getHirePostListToSearch(
-            null, null, codingTestN, null);
+            null, null, codingTestN, null, createPageable(0, 0));
 
         for (HirePost item : codingTestPostList) {
             System.out.println("item = " + item);
@@ -78,9 +79,9 @@ public class HirePostRepositoryTest {
 
         // When
         List<HirePost> assignmentPostList = hirePostRepositoryCustom.getHirePostListToSearch(
-            null, null, null, assignmentY);
+            null, null, null, assignmentY, createPageable(0, 0));
         List<HirePost> noAssignmentPostList = hirePostRepositoryCustom.getHirePostListToSearch(
-            null, null, null, assignmentN);
+            null, null, null, assignmentN, createPageable(0, 0));
 
         // Then
         assertThat(assignmentPostList.size()).isEqualTo(1);
@@ -99,10 +100,66 @@ public class HirePostRepositoryTest {
 
         // When
         List<HirePost> postList = hirePostRepositoryCustom.getHirePostListToSearch(null,
-            jobCategory, null, null);
+            jobCategory, null, null, createPageable(0, 0));
 
         // Then
         assertThat(postList.size()).isEqualTo(3);
+        for (HirePost post : postList) {
+            assertThat(Hibernate.isInitialized(post.getCompany())).isTrue();
+        }
+    }
+
+
+    @Test
+    @DisplayName("최대 갯수를 초과한 페이지 조회")
+    public void testSearchOverPage() {
+        // Given
+        List<String> jobCategory = new ArrayList<>();
+        Integer page = 1;
+        Integer pageSize = 3;
+
+        // When
+        List<HirePost> postList = hirePostRepositoryCustom.getHirePostListToSearch(null,
+            jobCategory, null, null, createPageable(page, pageSize));
+
+        // Then
+        assertThat(postList.size()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("최대 채용 공고 갯수 이내의 페이지 조회")
+    public void testSearchPage() {
+        // Given
+        List<String> jobCategory = new ArrayList<>();
+        Integer page = 0;
+        Integer pageSize = 3;
+
+        // When
+        List<HirePost> postList = hirePostRepositoryCustom.getHirePostListToSearch(null,
+            jobCategory, null, null, createPageable(page, pageSize));
+
+        // Then
+        assertThat(postList.size()).isEqualTo(3);
+        for (HirePost post : postList) {
+            assertThat(Hibernate.isInitialized(post.getCompany())).isTrue();
+        }
+    }
+
+    @Test
+    @DisplayName("최대 채용 공고 갯수 이내의 페이지 조회")
+    public void testSearchSecondPage() {
+        // Given
+        List<String> jobCategory = new ArrayList<>();
+        Integer page = 1;
+        Integer pageSize = 2;
+
+        // When
+        List<HirePost> postList = hirePostRepositoryCustom.getHirePostListToSearch(null,
+            jobCategory, null, null, createPageable(page, pageSize));
+
+        // Then
+        assertThat(postList.size()).isEqualTo(1);
+        assertThat(postList.get(0).getPostId()).isEqualTo(3);
         for (HirePost post : postList) {
             assertThat(Hibernate.isInitialized(post.getCompany())).isTrue();
         }

@@ -1,5 +1,6 @@
 package com.why_not_cote.service;
 
+import static com.why_not_cote.util.PageableUtils.createPageable;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -35,7 +36,8 @@ class HirePostServiceTest {
         // Given - Nothing
 
         // When
-        List<SearchHirePostRespDto> result = hirePostService.searchHirePost(null, null, null, null);
+        List<SearchHirePostRespDto> result = hirePostService.searchHirePost(null, null, null, null,
+            createPageable(0, 0));
 
         // Then
         assertThat(result.size()).isEqualTo(3);
@@ -57,7 +59,7 @@ class HirePostServiceTest {
         // When
         List<HirePost> postSkillList = postSkillService.getPostSkillListByTitleList(titleList);
         List<SearchHirePostRespDto> result = hirePostService.searchHirePost(postSkillList, null,
-            null, null);
+            null, null, createPageable(0, 0));
 
         // Then
         assertThat(result.size()).isEqualTo(2);
@@ -74,7 +76,7 @@ class HirePostServiceTest {
 
         // When
         List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(postSkillList, null,
-            null, null);
+            null, null, createPageable(0, 0));
 
         // Then
         assertThat(postList.size()).isEqualTo(0);
@@ -91,7 +93,7 @@ class HirePostServiceTest {
         // When
         List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(postSkillList, null,
             codingTestYn,
-            null);
+            null, createPageable(0, 0));
 
         // Then
         if (codingTestYn == YnCode.Y) {
@@ -111,7 +113,7 @@ class HirePostServiceTest {
 
         // When
         List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(null, null,
-            null, assignmentYn);
+            null, assignmentYn, createPageable(0, 0));
 
         // Then
         if (assignmentYn == YnCode.Y) {
@@ -129,7 +131,7 @@ class HirePostServiceTest {
 
         // When
         List<SearchHirePostRespDto> postList = hirePostService.searchHirePost(null, jobCategoryList,
-            null, null);
+            null, null, createPageable(0, 0));
 
         // Then
         if (jobCategory.equals("웹 풀스택 개발자")) {

@@ -9,6 +9,7 @@ import com.why_not_cote.util.code.YnCode;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ObjectUtils;
 
@@ -24,7 +25,8 @@ public class HirePostRepositoryImpl implements HirePostRepositoryCustom {
         List<HirePost> postList,
         List<String> jobCategoryList,
         YnCode codingTestYn,
-        YnCode assignmentYn) {
+        YnCode assignmentYn,
+        Pageable pageable) {
 
         return queryFactory.selectFrom(hirePost)
             .join(hirePost.company, QCompany.company)
@@ -35,6 +37,8 @@ public class HirePostRepositoryImpl implements HirePostRepositoryCustom {
                 codingTestYnEq(codingTestYn),
                 assignmentYnEq(assignmentYn)
             )
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
             .orderBy(hirePost.postId.asc())
             .fetch();
     }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,21 +27,20 @@ public class HirePostService {
 
     @Transactional(readOnly = true)
     public List<SearchHirePostRespDto> searchHirePost(List<HirePost> postListByTechStacks,
-        List<String> jobCategoryList, YnCode codingTestYn, YnCode assignmentYn) {
+        List<String> jobCategoryList, YnCode codingTestYn, YnCode assignmentYn, Pageable pageable) {
 
         if (CustomObjectUtils.isNotNull(postListByTechStacks) && postListByTechStacks.size() == 0) {
             return new ArrayList<>();
         }
 
         List<HirePost> result = hirePostRepositoryCustom.getHirePostListToSearch(
-            postListByTechStacks, jobCategoryList, codingTestYn, assignmentYn);
+            postListByTechStacks, jobCategoryList, codingTestYn, assignmentYn, pageable);
 
         return result.stream().map(SearchHirePostRespDto::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public DetailHirePostRespDto getHirePostDetailDto(Long postId) {
-        System.out.println("asfgasfkbafka");
         HirePost hirePost = hirePostRepository.findFirstByPostId(postId).orElseThrow(
             () -> new CommonException(ApiExceptionCode.BAD_REQUEST_EXCEPTION)
         );

@@ -1,5 +1,7 @@
 package com.why_not_cote.controller;
 
+import static com.why_not_cote.util.PageableUtils.createPageable;
+
 import com.why_not_cote.dto.hirePost.resp.DetailHirePostRespDto;
 import com.why_not_cote.dto.hirePost.resp.SearchHirePostRespDto;
 import com.why_not_cote.entity.post.HirePost;
@@ -25,13 +27,16 @@ public class HirePostController {
         @RequestParam(value = "techStack", required = false) List<String> skillTitleList,
         @RequestParam(value = "jobCategory", required = false) List<String> jobCategoryList,
         @RequestParam(required = false) YnCode codingTestYn,
-        @RequestParam(required = false) YnCode assignmentYn) {
+        @RequestParam(required = false) YnCode assignmentYn,
+        @RequestParam(required = false) Integer page,
+        @RequestParam(required = false) Integer pageSize
+    ) {
 
         List<HirePost> postListByTechStacks
             = postSkillService.getPostSkillListByTitleList(skillTitleList);
 
         return hirePostService.searchHirePost(postListByTechStacks, jobCategoryList, codingTestYn,
-            assignmentYn);
+            assignmentYn, createPageable(page, pageSize));
     }
 
     @GetMapping("/api/hire-post/{postId}")
