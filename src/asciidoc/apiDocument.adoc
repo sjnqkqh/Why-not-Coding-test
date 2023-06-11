@@ -21,7 +21,6 @@ Information::
 - URL : `/api/hire-post/search
 - Request Type : `application/json`
 
-
 Request Parameter::
 include::{snippets}/searchHirePost/request-parameters.adoc[]
 

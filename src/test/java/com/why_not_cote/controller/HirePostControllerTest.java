@@ -61,7 +61,10 @@ class HirePostControllerTest {
                         parameterWithName("techStack").description("기술 스택").optional(),
                         parameterWithName("jobCategory").description("직무 카테고리").optional(),
                         parameterWithName("codingTestYn").description("코딩 테스트 유무").optional(),
-                        parameterWithName("assignmentYn").description("과제물 전형 유무").optional()),
+                        parameterWithName("assignmentYn").description("과제물 전형 유무").optional(),
+                        parameterWithName("page").description("조회 페이지(Default 0)").optional(),
+                        parameterWithName("pageSize").description("페이지 당 컨텐츠 수 (Default 10)").optional()
+                    ),
                     responseFields(
                         fieldWithPath("[].postId").description("채용 공고 ID"),
                         fieldWithPath("[].title").description("채용 공고명"),
