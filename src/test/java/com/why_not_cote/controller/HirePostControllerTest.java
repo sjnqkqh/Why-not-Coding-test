@@ -1,23 +1,16 @@
 package com.why_not_cote.controller;
 
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.why_not_cote.config.DataIsolateTest;
-import com.why_not_cote.config.EnableMockMvcUTF8;
-import com.why_not_cote.dto.hirePost.resp.SearchHirePostRespDto;
 import java.io.IOException;
 import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +22,12 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.why_not_cote.config.DataIsolateTest;
+import com.why_not_cote.config.EnableMockMvcUTF8;
+import com.why_not_cote.dto.hirePost.resp.SearchHirePostRespDto;
 
 @DataIsolateTest
 @EnableMockMvcUTF8
@@ -66,16 +65,16 @@ class HirePostControllerTest {
                         parameterWithName("pageSize").description("페이지 당 컨텐츠 수 (Default 10)").optional()
                     ),
                     responseFields(
-                        fieldWithPath("[].postId").description("채용 공고 ID"),
-                        fieldWithPath("[].title").description("채용 공고명"),
-                        fieldWithPath("[].jobCategory").description("직무 유형"),
-                        fieldWithPath("[].companyId").description("회사 ID"),
-                        fieldWithPath("[].companyName").description("회사명"),
-                        fieldWithPath("[].minCareer").description("최소 경력"),
-                        fieldWithPath("[].maxCareer").description("최대 경력"),
-                        fieldWithPath("[].techStacks").description("기술 스택"),
-                        fieldWithPath("[].codingTestYn").description("코딩 테스트 유무"),
-                        fieldWithPath("[].assignmentYn").description("과제물 전형 유무")
+                        fieldWithPath("[].postId").type("Number").description("채용 공고 ID"),
+                        fieldWithPath("[].title").type("String").description("채용 공고명"),
+                        fieldWithPath("[].jobCategory").type("String").description("직무 유형"),
+                        fieldWithPath("[].companyId").type("Number").description("회사 ID"),
+                        fieldWithPath("[].companyName").type("String").description("회사명"),
+                        fieldWithPath("[].minCareer").type("Number").description("최소 경력"),
+                        fieldWithPath("[].maxCareer").type("Number").description("최대 경력"),
+                        fieldWithPath("[].techStacks").type("List").description("기술 스택"),
+                        fieldWithPath("[].codingTestYn").type("String (Y/N)").description("코딩 테스트 유무"),
+                        fieldWithPath("[].assignmentYn").type("String (Y/N)").description("과제물 전형 유무")
                     )
                 )
             ).andReturn();
@@ -106,18 +105,18 @@ class HirePostControllerTest {
                         parameterWithName("postId").description("채용 공고 ID")
                     ),
                     responseFields(
-                        fieldWithPath("postId").description("채용 공고 ID"),
-                        fieldWithPath("title").description("채용 공고명"),
-                        fieldWithPath("content").description("채용 상세내용"),
-                        fieldWithPath("recruitProcess").description("채용 절차"),
-                        fieldWithPath("jobCategory").description("직무 유형"),
-                        fieldWithPath("companyId").description("회사 ID"),
-                        fieldWithPath("companyName").description("회사명"),
-                        fieldWithPath("minCareer").description("최소 경력"),
-                        fieldWithPath("maxCareer").description("최대 경력"),
-                        fieldWithPath("techStacks").description("기술 스택"),
-                        fieldWithPath("codingTestYn").description("코딩 테스트 유무"),
-                        fieldWithPath("assignmentYn").description("과제물 전형 유무")
+                        fieldWithPath("postId").type("Number").description("채용 공고 ID"),
+                        fieldWithPath("title").type("String").description("채용 공고명"),
+                        fieldWithPath("content").type("String").description("채용 상세내용"),
+                        fieldWithPath("recruitProcess").type("String").description("채용 절차"),
+                        fieldWithPath("jobCategory").type("String").description("직무 유형"),
+                        fieldWithPath("companyId").type("Number").description("회사 ID"),
+                        fieldWithPath("companyName").type("String").description("회사명"),
+                        fieldWithPath("minCareer").type("Number").description("최소 경력"),
+                        fieldWithPath("maxCareer").type("Number").description("최대 경력"),
+                        fieldWithPath("techStacks").type("List").description("기술 스택"),
+                        fieldWithPath("codingTestYn").type("String (Y/N)").description("코딩 테스트 유무"),
+                        fieldWithPath("assignmentYn").type("String (Y/N)").description("과제물 전형 유무")
                     )
                 )
             );

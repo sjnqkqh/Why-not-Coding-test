@@ -1,0 +1,71 @@
+== 인증 관련
+
+=== 휴대전화 인증 [회원가입]
+
+회원가입 휴대전화 인증 요청 API
+
+Information::
+- Method : `POST`
+- URL : `/api/auth/phone/sign-in`
+- Request Type : `application/json`
+
+Request Body::
+include::{snippets}/testPhoneAuthenticationSignIn/request-fields.adoc[]
+
+Response Body::
+include::{snippets}/testPhoneAuthenticationSignIn/response-fields.adoc[]
+
+Request Example::
+include::{snippets}/testPhoneAuthenticationSignIn/http-request.adoc[]
+
+Response Example::
+include::{snippets}/testPhoneAuthenticationSignIn/http-response.adoc[]
+
+=== 휴대전화 인증 [비밀번호 찾기]
+
+비밀번호 휴대전화 인증 요청 API (ID, Email, 휴대전화 번호로 회원 조회)
+
+Information::
+- Method : `POST`
+- URL : `/api/auth/phone/password-reset`
+- Request Type : `application/json`
+
+Request Body::
+include::{snippets}/testPhoneAuthenticationPasswordReset/request-fields.adoc[]
+
+Response Body::
+include::{snippets}/testPhoneAuthenticationPasswordReset/response-fields.adoc[]
+
+Request Example::
+include::{snippets}/testPhoneAuthenticationPasswordReset/http-request.adoc[]
+
+Response Example::
+include::{snippets}/testPhoneAuthenticationPasswordReset/http-response.adoc[]
+
+=== 휴대전화 인증
+
+휴대전화 인증 확인 API
+(해당 프로젝트에선 입력한 휴대전화 번호 뒷자리 6자로 인증합니다.)
+
+Information::
+- Method : `PATCH`
+- URL : `/api/auth/phone`
+- Request Type : `application/json`
+
+Request Body::
+include::{snippets}/testCheckPhoneAuthentication/request-fields.adoc[]
+
+Response Body::
+include::{snippets}/testCheckPhoneAuthentication/response-fields.adoc[]
+
+Request Example::
+include::{snippets}/testCheckPhoneAuthentication/http-request.adoc[]
+
+Response Example::
+include::{snippets}/testCheckPhoneAuthentication/http-response.adoc[]
+
+[cols="1, 2, 7",options=header]
+|===
+|Status|Error Code|Desc
+|400|E0100|발급된 인증번호와 입력한 휴대전화 인증 번호가 다를 경우
+|===

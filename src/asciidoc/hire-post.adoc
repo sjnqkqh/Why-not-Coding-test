@@ -1,0 +1,44 @@
+== 채용 공고 관련
+
+=== 채용 공고 목록 검색
+
+채용 공고 목록 검색 API
+
+Information::
+- Method : `GET`
+- URL : `/api/hire-post/search`
+- Request Type : `application/json`
+
+Request Parameter::
+include::{snippets}/searchHirePost/request-parameters.adoc[]
+
+Response Body::
+include::{snippets}/searchHirePost/response-fields.adoc[]
+
+Request Example::
+include::{snippets}/searchHirePost/http-request.adoc[]
+
+Response Example::
+include::{snippets}/searchHirePost/http-response.adoc[]
+
+
+=== 채용 공고 상세 조회
+
+채용 공고 상세 조회 API
+
+Information::
+- Method : `GET`
+- URL : `/api/hire-post/search`
+- Request Type : `application/json`
+
+Request Parameter::
+include::{snippets}/getHirePostDetail/path-parameters.adoc[]
+
+Response Body::
+include::{snippets}/getHirePostDetail/response-fields.adoc[]
+
+Request Example::
+include::{snippets}/getHirePostDetail/http-request.adoc[]
+
+Response Example::
+include::{snippets}/getHirePostDetail/http-response.adoc[]
