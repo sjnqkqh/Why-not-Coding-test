@@ -90,6 +90,8 @@ CREATE TABLE TB_HIRING_POST
     PRIMARY KEY (post_id),
     CONSTRAINT fk_hiring_post_to_company FOREIGN KEY (company_id) REFERENCES tb_company (company_id)
 );
+CREATE INDEX HIRE_POST_SEARCH_INDEX ON TB_HIRING_POST (job_category, coding_test_exist_yn, assignment_exist_yn,
+                                                       min_career, max_career);
 
 CREATE TABLE TB_POST_IMAGE
 (
@@ -123,5 +125,4 @@ CREATE TABLE TB_POST_SKILL
     PRIMARY KEY (post_skill_id),
     CONSTRAINT fk_post_skill_to_post FOREIGN KEY (post_id) REFERENCES TB_HIRING_POST (post_id),
     CONSTRAINT fk_post_skill_to_skill FOREIGN KEY (skill_id) REFERENCES TB_SKILL (skill_id)
-
 )
